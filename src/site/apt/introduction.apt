@@ -1,0 +1,33 @@
+ -----
+ Dataentity introduction
+ -----
+ -----
+
+Dataentity
+
+ The dataentity object is an attempt to add a more powerful data object to Java. The idea is to formalise the concept of object state, into a set of object attributes, which can be accessed in a generic manner. The result of doing this that it becomes possible to implement data manipulation logic, which is independent of the concrete object type. 
+
+ This is used to in the dataentity object for implementations of the Java object operations: toString, hashcode, equals, copy(clonable) and externalize. Two dataentity can be be compared to produce a difference object. Difference objects can be used to update state of dataentity objects. 
+
+The dataentity object implements the composition design pattern, this means dataentity objects can have other dataentity objects as attributes.
+   
+Dataprocessor
+ 
+ The framework defines a dataentity processing object, the dataprocessor. Dataprocessor can be implemented to process generic dataentity, and can at instatiated time be configured to wotk on concrete attributes.
+ 
+ The dataprocessor object also implements the composition design pattern. This means logic engines can be constructed runtime by aggregation dataprocessors into complex dataentity structures.
+
+Interaction bean 
+  A interaction bean provides controlled event handling to/from  a dataentity object. 
+  A interaction bean is a logic entity consisting of:
+ - Controller: Processes the event to and from the dataentity. The controller itself is composed of:
+   -- Eventhandler: Detemines which event should be handled or discarded. Used for breaking eventloops and avoid processing insignificant events.
+   -- Mapper: Maps data from the outside domain to a dataentity object.
+   -- Dataprocessor structure: Provides data processing functionality.
+ - Connector: Provides a connection between the dataentity and the outside domain. Exampels are Swing components or JSP.
+ 
+ Examples of Interaction beans can be found in the Swing Bean example 
+
+
+   
+

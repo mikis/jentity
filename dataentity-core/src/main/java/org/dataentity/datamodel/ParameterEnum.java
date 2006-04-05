@@ -1,0 +1,7 @@
+package org.dataentity.datamodel;
+
+public abstract class ParameterEnum extends org.apache.commons.lang.enums.Enum {
+    public ParameterEnum(String name) {
+        super(name);
+    }   
+}

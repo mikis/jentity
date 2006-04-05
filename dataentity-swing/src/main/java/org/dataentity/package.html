@@ -1,0 +1,29 @@
+<html>
+Contains components for building a MVC GUI. The idea is to extends the default swing 
+components with functionality for binding to a <code>DataEntity</code> model. The structure
+of a UI bean component is shown in :<p>
+
+The participating entities are:
+<ul>
+<li> View: Represents the visible component the user interacts with. This will typically be a swing
+component. View components should not be shared.
+<li> Controller: The controller has the responsabilty of handling userinput and prossing the
+events into model updates. Controller components should not be shared. It is the controllers 
+responsability to ensure that each user event will result in only one model update event. 
+<li> Processor: To be able to change controller processing, the controller deligates model change
+processing to it's associated processor. The processor is of the type <code>DataEntityProcessor</code>.
+<code>DataEntityProcessor</code> objects are compositions and can therefore be extended with 
+any exstra functionality needed. Each controller has one root processor which can have any number 
+of subprocessors. Processors are stateless and should be shared.
+<li> UI Bean: Logical structure containing a view and it's bindings to the model. An GUI bean always
+contains a view. If the view should reflect data contained in the model, it also will contain
+a model listener which processes model updates into view changes. If the bean provides functionality for 
+modifying the model a controller will handle this.
+<li> Model: The common point of interaction for the UI system is the shared model, which contains all
+all data need to be exchange between the participating components. The model notifies all model
+listeners each time a model change occures. The model is the only state in the UI component which
+is shared.
+</ul>
+</html>
+
+ 
