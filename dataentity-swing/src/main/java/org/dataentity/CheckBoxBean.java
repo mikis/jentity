@@ -14,7 +14,6 @@ import org.dataentity.datamodel.DataEntity;
 
 /**
  * Enables checkboxes to be attached to a <code>DataEntity</code> model. 
- * @author msn
  */
 public class CheckBoxBean implements GUIBean {
     protected final DataEntity model;
