@@ -1,0 +1,12 @@
+<?xml	version="1.0"	encoding="UTF-8"?>
+
+<Content>			
+	<Class name="org.dataentity.datamodel.TestEntity">
+		<Attribute name="attribute1" type="String"/>
+		<Attribute name="attribute2" type="String"/>				
+		<Attribute name="attribute3" type="String[]"/>				
+		<Attribute name="attribute4" type="DataEntity" visitor="DataCoreVisitor"/>			
+		<Attribute name="attribute5" type="integer"/>				
+		<Attribute name="attribute6" type="boolean"/>		
+	</Class>
+</Content>
