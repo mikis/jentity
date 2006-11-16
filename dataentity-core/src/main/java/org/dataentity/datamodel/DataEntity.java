@@ -87,7 +87,8 @@ public abstract class DataEntity {
     
     /**
      * Return a <code>AttributeVisitor</code> for the supplied attribute. The operation should be implemented by
-     * subclasses to provide visitors for specific attribute.
+     * subclasses to provide visitors for specific attribute. 
+     * This generic implementation returns a  <code>DefaultAttributeVisitor</code>
      */
     public AttributeVisitor getVisitor(ParameterEnum parameter) {
         return defaultVisitor;
@@ -198,22 +199,20 @@ public abstract class DataEntity {
      * notification thread.
      */
     private void notifyListeners(ChangeListener.ChangeEvent update) throws IllegalStateException {
-        if (modelListeners != null) {
-            if (!notifying) {
-                try {
-                    notifying = true;
-                    for (Iterator iter = modelListeners.iterator(); iter.hasNext();) {
-                        ChangeListener listener = (ChangeListener) iter.next();
-                        listener.handleUpdate(update);
-                    }
-                } finally {
-                    notifying = false;
-                }
-            } else {
-                throw new IllegalStateException("Forsøg på at opdateret data i i notifikationthread");
-            }
-        }
+    	if (!notifying) {
+    		try {
+    			notifying = true;
+    			for (Iterator iter = modelListeners.iterator(); iter.hasNext();) {
+    				ChangeListener listener = (ChangeListener) iter.next();
+    				listener.handleUpdate(update);
+    			}
+    		} finally {
+    			notifying = false;
+    		}
+    	} else {
+    		throw new IllegalStateException("Forsøg på at opdateret data i i notifikationthread");
+    	}
     }
-    
+
     public abstract DataEntity createInstance();
 }

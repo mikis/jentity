@@ -1,11 +1,7 @@
 package org.dataentity.example;
 
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
-
 import javax.swing.JComponent;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -22,7 +18,6 @@ public class ContainerUI extends CompositeView {
     
     public ContainerUI(Container model) {
         this.model = model;
-//        BoxLayout bl = new BoxLayout(this, BoxLayout.Y_AXIS);
         this.setLayout(new SpringLayout());
         
         createTotalVolumeBean();
@@ -39,21 +34,21 @@ public class ContainerUI extends CompositeView {
     
     private IntegerFieldBean createTotalVolumeBean() {
     	IntegerFieldBean bean = new IntegerFieldBean(new JTextField(10), model, Container. TOTALVOLUME);   
-    	addField("Container size", bean.getView());
+    	addField("Container size (l)", bean.getView());
         addGUIBean(bean);
         return bean;
     }
     
     private SliderBean createWaterVolumeBean() {
     	SliderBean bean = new SliderBean(new JSlider(), model, Container.WATERVOLUME, Container.MINWATERVOLUME , Container. TOTALVOLUME);   
-    	addField("Water", bean.getView());
+    	addField("Water (l)", bean.getView());
         addGUIBean(bean);
         return bean;
     }
     
     private SliderBean createEmptyVolumeBean() {
     	SliderBean bean = new SliderBean(new JSlider(), model, Container.EMPTYVOLUME, Container.MINWATERVOLUME , Container. TOTALVOLUME);   
-    	addField("Empty", bean.getView());
+    	addField("Empty (l)", bean.getView());
         addGUIBean(bean);
         return bean;
     }    
@@ -66,9 +61,6 @@ public class ContainerUI extends CompositeView {
     }
     
     private void addField(String name, JComponent view) {
-//        JPanel linePanel = new JPanel(new  GridLayout( 1,2 ));
-//        linePanel.add(new JLabel(name));
-//        linePanel.add(view);
         add(new JLabel(name));
         add(view);
     }

@@ -11,7 +11,10 @@
     <module>dataentity-core</module>
     <module>dataentity-swing</module>
   </modules>
-  <version>1.0-SNAPSHOT</version>
+  <version>0.1.0-SNAPSHOT</version>
+   <description>At the core of the framework lies the dataentity object, which is an attempt to 
+   provide Java with a more powerful Data Object. An example usage is included in the form af a 
+   powerful MVP type GUI framework. </description>
   <name>Datacentric construction</name>
   <url>http://mikisseth.dk</url>
   <dependencies>
@@ -25,7 +28,7 @@
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>3.8.1</version>
-      <scope>test</scope>
+      <scope>compile</scope>
     </dependency>
   </dependencies>
 </project>

@@ -47,7 +47,12 @@ public interface ChangeListener extends EventListener {
         
         public DataEntity getModel() {
             return currentValues;
-        } 
+        }
+		public String toString() {
+			return "Updated values: "+ getUpdateValues() +
+			 			 "\nOld values: "+ getOldValues() +
+			             "\nModel: "+ getModel();
+		}   
     }
 
     public void handleUpdate(ChangeListener.ChangeEvent change);
