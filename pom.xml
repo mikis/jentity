@@ -17,18 +17,43 @@
    powerful MVP type GUI framework. </description>
   <name>Datacentric construction</name>
   <url>http://mikisseth.dk</url>
-  <dependencies>
-    <dependency>
-      <groupId>commons-lang</groupId>
-      <artifactId>commons-lang</artifactId>
-      <version>2.1</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>compile</scope>
-    </dependency>
-  </dependencies>
+  <issueManagement>
+  	<system>Sourceforge</system> 
+  	<url>http://sourceforge.net/projects/dataentity/</url>
+  </issueManagement>
+    <mailingLists>
+    </mailingLists>
+    <developers>
+        <developer>
+          <id>mikis</id>
+          <name>Mikis Seth Sorensen</name>
+          <email>mikisseth@sourceforge.org</email>
+          <timezone>+1</timezone>
+          <roles>
+             <role>
+          	PMC Chair
+             </role>
+          </roles>
+        </developer>
+    </developers>
+    <licenses>
+        <license>
+        	<name>Apache License V2.0</name>
+        	<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+          <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <scm>
+        <connection>scm:svn:http://svn.sourceforge.net/svnroot/dataentity/trunk</connection>
+        <developerConnection>scm:svn:https://svn.sourceforge.net/svnroot/dataentity/trunk</developerConnection>
+        <url>http://svn.sourceforge.net/viewcvs.cgi/dataentity</url>
+  </scm>
+  <ciManagement>
+    <system>continuum</system>
+    <notifiers>
+      <notifier>
+        <address>dataentity-devel@lists.sourceforge.net</address>
+      </notifier>
+    </notifiers>
+</ciManagement>
 </project>
