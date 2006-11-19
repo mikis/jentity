@@ -44,7 +44,7 @@
         </license>
     </licenses>
     <scm>
-        <connection>scm:svn:http://svn.sourceforge.net/svnroot/dataentity/trunk</connection>
+        <connection>scm:svn:https://svn.sourceforge.net/svnroot/dataentity/trunk</connection>
         <developerConnection>scm:svn:https://svn.sourceforge.net/svnroot/dataentity/trunk</developerConnection>
         <url>http://svn.sourceforge.net/viewcvs.cgi/dataentity</url>
   </scm>

@@ -33,7 +33,7 @@
       <plugins>
         <plugin>
           <groupId>dataentity</groupId>
-          <artifactId>maven-dataentity-generator-plugin</artifactId>
+          <artifactId>dataentity-generator</artifactId>
           <configuration>
          	 <model>${basedir}/src/test/resources/testentity.xml</model>
           </configuration>
