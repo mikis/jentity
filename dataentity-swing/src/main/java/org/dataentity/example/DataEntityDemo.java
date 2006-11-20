@@ -48,7 +48,7 @@ public class DataEntityDemo  {
         
         //Initialize model
         valve.setFlow(3);
-        valve.setOpen(true);
+        valve.setOpen(false);
         
         ValveUI valveUI = new ValveUI(valve);
         

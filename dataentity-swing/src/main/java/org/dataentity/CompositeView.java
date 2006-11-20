@@ -11,7 +11,6 @@ import javax.swing.JPanel;
 public abstract class CompositeView extends JPanel implements GUIBean {
     private final List nestedGUIBeans = new LinkedList();
     private final List editableComponents = new LinkedList();
-    private boolean attached;
     
     /**
      * Adds the supplied GUI bean to this composite view. This means that <code>GUIBean</code> operations called on 

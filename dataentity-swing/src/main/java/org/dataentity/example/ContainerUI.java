@@ -25,7 +25,7 @@ public class ContainerUI extends CompositeView {
         IntegerFieldBean totalVolumeBean = createTotalVolumeBean();
         SliderBean waterVolumeBean = createWaterVolumeBean();
         SliderBean emptyVolumeBean = createEmptyVolumeBean();
-        DataentityView containerModelView = createContainerModelView();
+        createContainerModelView();
         
         DataProcessor waterLevelProcessor = createWaterLevelProcessor();
         totalVolumeBean.addSubprocessor(waterLevelProcessor);

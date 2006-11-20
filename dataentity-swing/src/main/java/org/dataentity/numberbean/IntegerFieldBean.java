@@ -3,7 +3,6 @@ package org.dataentity.numberbean;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JSlider;
 import javax.swing.JTextField;
 
 import org.dataentity.CompositeView;

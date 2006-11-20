@@ -11,6 +11,7 @@ import javax.swing.JCheckBox;
 
 import org.dataentity.datamodel.ChangeListener;
 import org.dataentity.datamodel.DataEntity;
+import org.dataentity.datamodel.DataProcessor;
 
 /**
  * Enables checkboxes to be attached to a <code>DataEntity</code> model. 
@@ -22,7 +23,13 @@ public class CheckBoxBean implements GUIBean {
     protected final ChangeListener listener;
     final List additionalListeners = new LinkedList();
     private Object parameter;
-    private Object value;
+    private final EventGuard guard = new EventGuard();
+    
+	protected final DataProcessor processor = new DataProcessor("Text") {
+        protected void processEntity(DataEntity dataEntity){
+            // No default behavior, acts as root processor
+        }
+    };
     
     public CheckBoxBean(final Object param,
                         final JCheckBox view,
@@ -43,15 +50,17 @@ public class CheckBoxBean implements GUIBean {
             }
         };
         button.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if (button.isSelected()) {
-                    controller.update(parameter, value);
-                } else {
-                    button.setSelected(true);
-                }
-            }
+        	public void actionPerformed(ActionEvent e) {
+        		if (guard. getGuard()) {
+        			DataEntity update = model.createInstance();
+        			update.setAttribute(parameter, new Boolean(button.isSelected()));
+
+        			processor.process(update);    
+        			model.update(update);
+        			guard.releaseGuard();
+        		}
+        	}
         });
-        setController(new ButtonController(model));
     }
     
     public void setEnabled(boolean value) {
@@ -59,9 +68,9 @@ public class CheckBoxBean implements GUIBean {
         button.setFocusable(value);
     }
 
-    public void setController(ButtonController controller) {
-        this.controller = controller;
-    }        
+	public void addSubprocessor(DataProcessor subprocesser) {
+		processor.addSubprocessor(subprocesser);
+	}	
     
     public AbstractButton getView() {
         return button;
