@@ -29,7 +29,6 @@ public class FlowAgent {
 	}
 	
 	private class Worker implements Runnable {
-
 		public void run() {
 			try {
 				if (valve.getOpen()) {
@@ -40,8 +39,7 @@ public class FlowAgent {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
-			}
-			
+			}			
 		}		
 	}
 }

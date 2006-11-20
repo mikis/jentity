@@ -62,7 +62,7 @@ public abstract class DataEntity {
      * Inserts the attributes defined in the update into this entity.
      */
     public synchronized void update(DataEntity update) {
-        //Defensive copy, we also lock the supplied object, wouldn't be nice doing this on the supplied object
+        //Defensive copy, we also lock the copy, wouldn't be nice doing this on the supplied object.
         update = update.copy();
         update.setLock(true);
         if (preprocessor != null) {

@@ -10,6 +10,8 @@ import javax.swing.SpringLayout;
 import org.dataentity.CompositeView;
 import org.dataentity.DataentityView;
 import org.dataentity.datamodel.Container;
+import org.dataentity.datamodel.DataEntity;
+import org.dataentity.datamodel.DataProcessor;
 import org.dataentity.numberbean.IntegerFieldBean;
 import org.dataentity.numberbean.SliderBean;
 
@@ -20,16 +22,20 @@ public class ContainerUI extends CompositeView {
         this.model = model;
         this.setLayout(new SpringLayout());
         
-        createTotalVolumeBean();
-        createWaterVolumeBean();
-        createEmptyVolumeBean();
-        createContainerModelView();
+        IntegerFieldBean totalVolumeBean = createTotalVolumeBean();
+        SliderBean waterVolumeBean = createWaterVolumeBean();
+        SliderBean emptyVolumeBean = createEmptyVolumeBean();
+        DataentityView containerModelView = createContainerModelView();
+        
+        DataProcessor waterLevelProcessor = createWaterLevelProcessor();
+        totalVolumeBean.addSubprocessor(waterLevelProcessor);
+        waterVolumeBean.addSubprocessor(waterLevelProcessor);
+        emptyVolumeBean.addSubprocessor(waterLevelProcessor);
         
         SpringUtilities.makeCompactGrid(this,
                 4, 2, //rows, cols
                 6, 6,        //initX, initY
                 6, 6);       //xPad, yPad
-        
     }
     
     private IntegerFieldBean createTotalVolumeBean() {
@@ -40,7 +46,7 @@ public class ContainerUI extends CompositeView {
     }
     
     private SliderBean createWaterVolumeBean() {
-    	SliderBean bean = new SliderBean(new JSlider(), model, Container.WATERVOLUME, Container.MINWATERVOLUME , Container. TOTALVOLUME);   
+    	SliderBean bean = new SliderBean(new JSlider(), model, Container.WATERVOLUME, Container.MINWATERVOLUME , Container. TOTALVOLUME);       	
     	addField("Water (l)", bean.getView());
         addGUIBean(bean);
         return bean;
@@ -63,5 +69,34 @@ public class ContainerUI extends CompositeView {
     private void addField(String name, JComponent view) {
         add(new JLabel(name));
         add(view);
+    }
+    
+    /**
+     * Maintains TotalVolume = WaterVolume + EmptyVolume with TotalVolume as the invariable. If TotalVolume is changed the empty volume is changed, when no empty volume remains
+     * watervolume is used.
+     * @return
+     */
+    private DataProcessor createWaterLevelProcessor() {
+    	return new DataProcessor("Water volume processor")  {		
+			protected void processEntity(DataEntity data) {
+				Container change = (Container)data;
+				if (change.isDefined(Container.WATERVOLUME)) {
+					int newEmptyVolume = model.getTotalVolume()-change.getWaterVolume();
+					change.setEmptyVolume(newEmptyVolume);
+				} else if (change.isDefined(Container.EMPTYVOLUME)) {
+					int newWaterVolume = model.getTotalVolume()-change.getEmptyVolume();
+					change.setWaterVolume(newWaterVolume);
+				} else if (change.isDefined(Container.TOTALVOLUME)) {
+					if (change.getTotalVolume()>model.getWaterVolume()) {
+						int newEmptyVolume = change.getTotalVolume()-model.getWaterVolume();
+						change.setEmptyVolume(newEmptyVolume);
+					} else {
+						int newWaterVolume = change.getTotalVolume();
+						change.setWaterVolume(newWaterVolume);
+						change.setEmptyVolume(0);
+					}
+				}
+			}		
+		};
     }
 }

@@ -20,7 +20,7 @@ public class SliderBean extends CompositeView {
     private final EventGuard guard = new EventGuard();
 	protected final DataProcessor processor = new DataProcessor("Text") {
         protected void processEntity(DataEntity dataEntity){
-            // Does nothing, acts as root processor
+            // No default behavior, acts as root processor
         }
     };
     
@@ -34,21 +34,20 @@ public class SliderBean extends CompositeView {
         this.valueParameter = valueParameter;
         this.minParameter = minParameter;
         this.maxParameter = maxParameter;
-        addGUIBean(new DefaultGUIBean(model, 
-        		new ChangeListener() {
-        	public void handleUpdate(ChangeListener.ChangeEvent dataEntity) {
+        addGUIBean(new DefaultGUIBean(model, new ChangeListener() {
+        	public void handleUpdate(ChangeListener.ChangeEvent changeEvent) {
         		if (guard. getGuard()) {
-        			if (dataEntity.getUpdateValues().isDefined(valueParameter)) {
-        				view.setValue(((Integer)dataEntity.getUpdateValues().getAttribute(valueParameter)).intValue()); 
+        			if (changeEvent.getUpdateValues().isDefined(minParameter)) {
+        				view.setMinimum(((Integer)changeEvent.getUpdateValues().getAttribute(minParameter)).intValue()); 
         			}
-        			if (dataEntity.getUpdateValues().isDefined(minParameter)) {
-        				view.setMinimum(((Integer)dataEntity.getUpdateValues().getAttribute(minParameter)).intValue()); 
+        			if (changeEvent.getUpdateValues().isDefined(maxParameter)) {
+        				view.setMaximum(((Integer)changeEvent.getUpdateValues().getAttribute(maxParameter)).intValue()); 
         			}
-        			if (dataEntity.getUpdateValues().isDefined(maxParameter)) {
-        				view.setMaximum(((Integer)dataEntity.getUpdateValues().getAttribute(maxParameter)).intValue()); 
+        			if (changeEvent.getUpdateValues().isDefined(valueParameter)) {
+        				view.setValue(((Integer)changeEvent.getUpdateValues().getAttribute(valueParameter)).intValue()); 
         			}
+            		guard.releaseGuard();
         		}
-        		guard.releaseGuard();
         	}
         }));
 
@@ -72,8 +71,8 @@ public class SliderBean extends CompositeView {
         			}
         			processor.process(update);    
         			model.update(update);
+            		guard.releaseGuard();
         		}
-        		guard.releaseGuard();
         	}
         });
     }

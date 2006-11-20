@@ -11,7 +11,12 @@ import javax.swing.JPanel;
 public abstract class CompositeView extends JPanel implements GUIBean {
     private final List nestedGUIBeans = new LinkedList();
     private final List editableComponents = new LinkedList();
+    private boolean attached;
     
+    /**
+     * Adds the supplied GUI bean to this composite view. This means that <code>GUIBean</code> operations called on 
+     * @param component
+     */
     protected final void addGUIBean(GUIBean component) {
         nestedGUIBeans.add(component);
     }
@@ -20,14 +25,14 @@ public abstract class CompositeView extends JPanel implements GUIBean {
         nestedGUIBeans.remove(component);
     }
     
-    public void attachToModel() {
-        for (Iterator iter = nestedGUIBeans.iterator(); iter.hasNext();) {
-            GUIBean guiBean = (GUIBean) iter.next();
-            guiBean.attachToModel();
-        }
-    }        
-    
-    public void detachFromModel() {
+    public synchronized void attachToModel() {
+    	for (Iterator iter = nestedGUIBeans.iterator(); iter.hasNext();) {
+    		GUIBean guiBean = (GUIBean) iter.next();
+    		guiBean.attachToModel();
+    	}
+    }
+
+    public synchronized void detachFromModel() {
         for (Iterator iter = nestedGUIBeans.iterator(); iter.hasNext();) {
             GUIBean guiBean = (GUIBean) iter.next();
             guiBean.detachFromModel();

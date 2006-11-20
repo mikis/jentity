@@ -58,4 +58,8 @@ public class IntegerFieldBean extends CompositeView {
     public JTextField getView() {
         return view;
     }
+
+	public void addSubprocessor(DataProcessor subprocesser) {
+		processor.addSubprocessor(subprocesser);
+	}
 }
