@@ -34,18 +34,17 @@ public class FlowAgent {
 		public void run() {
 			try {
 				while (true) {
-					if (valve.getOpen()) {
-						final Container update = new Container();
-						int currentLevel = container.getWaterVolume();
-						update.setWaterVolume(currentLevel-valve.getFlow());
-						SwingUtilities.invokeLater(new Runnable() {
-							public void run() {
-								System.out.println("Updating: "+update);
-								container.update(update);
-							}							
-						});
-						Thread.sleep(1000);
-					}
+					SwingUtilities.invokeLater(new Runnable() {	public void run() {
+						if (valve.getOpen()) {
+							final Container update = new Container();
+							int currentLevel = container.getWaterVolume();
+							update.setWaterVolume(currentLevel-valve.getFlow());
+
+							container.update(update);
+						}		
+					}					
+					});
+					Thread.sleep(1000);
 				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();
