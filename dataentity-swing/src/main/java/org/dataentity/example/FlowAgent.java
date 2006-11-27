@@ -1,5 +1,7 @@
 package org.dataentity.example;
 
+import javax.swing.SwingUtilities;
+
 import org.dataentity.datamodel.Container;
 import org.dataentity.datamodel.DataProcessor;
 import org.dataentity.datamodel.Valve;
@@ -18,25 +20,33 @@ public class FlowAgent {
 		this.container = container;
 		this.valve = valve;
 	}
-	
+
 	public void start() {
 		thread = new Thread(new Worker());
 		thread.start();
 	}
-	
+
 	public void stop() {
 		thread.interrupt();
 	}
-	
+
 	private class Worker implements Runnable {
 		public void run() {
 			try {
-				if (valve.getOpen()) {
-					Container update = new Container();
-					int currentLevel = container.getWaterVolume();
-					update.setWaterVolume(currentLevel-valve.getFlow());
+				while (true) {
+					if (valve.getOpen()) {
+						final Container update = new Container();
+						int currentLevel = container.getWaterVolume();
+						update.setWaterVolume(currentLevel-valve.getFlow());
+						SwingUtilities.invokeLater(new Runnable() {
+							public void run() {
+								System.out.println("Updating: "+update);
+								container.update(update);
+							}							
+						});
+						Thread.sleep(1000);
+					}
 				}
-				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}			
