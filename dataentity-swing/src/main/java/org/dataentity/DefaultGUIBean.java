@@ -3,6 +3,10 @@ package org.dataentity;
 import org.dataentity.datamodel.ChangeListener;
 import org.dataentity.datamodel.DataEntity;
 
+/**
+ * Implements the binding ofchangelister and model during attach/detachmodel calls.
+ *
+ */
 public class DefaultGUIBean implements GUIBean {
     private final DataEntity model;
     private final ChangeListener listener;
@@ -24,5 +28,4 @@ public class DefaultGUIBean implements GUIBean {
         attached = false;
         model.removeListener(listener);
     }
-
 }
