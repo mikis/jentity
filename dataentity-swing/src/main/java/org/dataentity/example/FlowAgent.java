@@ -14,7 +14,6 @@ public class FlowAgent {
 	private final Container container;
 	private final  Valve valve;
 	private Thread thread;
-	private DataProcessor waterLevelProcessor;
 
 	public FlowAgent(Container container, Valve valve) {
 		this.container = container;

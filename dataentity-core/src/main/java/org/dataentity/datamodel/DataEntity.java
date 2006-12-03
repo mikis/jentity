@@ -48,6 +48,14 @@ public abstract class DataEntity {
     }
     
     /**
+     * Sets the preprocessor for this <code>DataEntity</code> object. The preprocessor will be applied to on all changes, before they are committed.  
+     * @param preprocessor
+     */
+    public void setPreprocessor(DataProcessor preprocessor) {
+    	this.preprocessor = preprocessor;
+    }
+    
+    /**
      * Returns <code>true</code> if the parameter has been defined in this data core, 
      * else <code>false</code>
      */
@@ -64,10 +72,10 @@ public abstract class DataEntity {
     public synchronized void update(DataEntity update) {
         //Defensive copy, we also lock the copy, wouldn't be nice doing this on the supplied object.
         update = update.copy();
-        update.setLock(true);
         if (preprocessor != null) {
             preprocessor.process(update);
         }
+        update.setLock(true);
         
         DataEntity oldValues = createInstance();
         Iterator iter = update.getKeys().iterator();

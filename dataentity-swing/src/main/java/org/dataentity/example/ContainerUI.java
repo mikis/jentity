@@ -22,15 +22,12 @@ public class ContainerUI extends CompositeView {
         this.model = model;
         this.setLayout(new SpringLayout());
         
-        IntegerFieldBean totalVolumeBean = createTotalVolumeBean();
-        SliderBean waterVolumeBean = createWaterVolumeBean();
-        SliderBean emptyVolumeBean = createEmptyVolumeBean();
+        createTotalVolumeBean();
+        createWaterVolumeBean();
+        createEmptyVolumeBean();
         createContainerModelView();
         
-        DataProcessor waterLevelProcessor = createWaterLevelProcessor();
-        totalVolumeBean.addSubprocessor(waterLevelProcessor);
-        waterVolumeBean.addSubprocessor(waterLevelProcessor);
-        emptyVolumeBean.addSubprocessor(waterLevelProcessor);
+        model.setPreprocessor(createWaterLevelProcessor());
         
         SpringUtilities.makeCompactGrid(this,
                 4, 2, //rows, cols

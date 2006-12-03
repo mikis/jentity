@@ -49,6 +49,7 @@ public class ValveUI extends CompositeView {
     
     private DateFieldBean createTimeOpenedBean() {
     	DateFieldBean bean = new DateFieldBean(model, Valve.TIMEOPENED);    
+    	bean.setEnabled(false);
     	addField("Time opened", bean.getView());
         addGUIBean(bean);
         return bean;
