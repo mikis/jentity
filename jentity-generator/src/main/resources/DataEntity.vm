@@ -4,6 +4,7 @@ package $class.package;
 
 import java.util.*;
 
+import org.jentity.datamodel.*;
 import org.jentity.datamodel.visitor.*;
 
 #if ($class.JavaDoc)
