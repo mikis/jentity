@@ -1,5 +1,7 @@
 package org.dataentity.datamodel;
 
+import org.jentity.datamodel.ChangeListener;
+import org.jentity.datamodel.DataEntity;
 import org.jmock.core.Constraint;
 
 public class ChangeEventConstraint implements Constraint {

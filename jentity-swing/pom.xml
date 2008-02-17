@@ -12,7 +12,7 @@
   <name>Datacentric construction swing module</name>
   <dependencies>
     <dependency>
-      <groupId>jentity</groupId>
+      <groupId>org.jentity</groupId>
       <artifactId>jentity-core</artifactId>
       <version>0.1.0-SNAPSHOT</version>
     </dependency>
@@ -28,8 +28,8 @@
       <version>1.0.1</version>
     </dependency>
     <dependency>
-      <groupId></groupId>
-      <artifactId>-core</artifactId>
+      <groupId>org.jentity</groupId>
+      <artifactId>jentity-core</artifactId>
       <version>0.1.0-SNAPSHOT</version>
       <scope>test</scope>
       <type>test-jar</type>
@@ -38,14 +38,14 @@
    <build>
    <plugins>
         <plugin>
-          <groupId></groupId>
-          <artifactId>-generator</artifactId>
+          <groupId>org.jentity</groupId>
+          <artifactId>jentity-generator</artifactId>
           <configuration>
          	 <model>${basedir}/src/main/resources/model.xml</model>
           </configuration>
           <executions>
-            <execution>
-            <phase>compile</phase>
+            <execution>            
+            <phase>generate-sources</phase>
               <goals>
                 <goal>generate</goal>
               </goals>

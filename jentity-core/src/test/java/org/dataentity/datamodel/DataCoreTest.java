@@ -4,6 +4,10 @@ import java.util.LinkedList;
 
 import junit.framework.TestCase;
 
+import org.jentity.datamodel.ChangeListener;
+import org.jentity.datamodel.DataEntity;
+import org.jentity.datamodel.TestEntity;
+
 public class DataCoreTest extends TestCase {
     protected final TestEntity entity = new TestEntity();
     protected ChangeEventQueue eventQueue; 
@@ -77,7 +81,6 @@ public class DataCoreTest extends TestCase {
         DataEntity change = new TestEntity();
         change.setAttribute(TestEntity.ATTRIBUTE1, "Attribur1.2");
 
-        DataEntity original = entity.copy();
         entity.update(change);
         assertEquals("Attribute was not update", change.getAttribute(TestEntity.ATTRIBUTE1), entity.getAttribute1());
     }

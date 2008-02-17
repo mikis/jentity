@@ -1,7 +1,7 @@
 <?xml	version="1.0"	encoding="UTF-8"?>
 
 <Content>			
-	<Class name="org.dataentity.datamodel.TestEntity">
+	<Class name="org.jentity.datamodel.TestEntity">
 		<Attribute name="attribute1" type="String"/>
 		<Attribute name="attribute2" type="String"/>				
 		<Attribute name="attribute3" type="String[]"/>				

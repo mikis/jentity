@@ -1,7 +1,7 @@
 <?xml	version="1.0"	encoding="UTF-8"?>
 
 <Content>			
-	<Class name="org.dataentity.datamodel.Container">
+	<Class name="org.jentity.datamodel.Container">
 		<Attribute name="name" type="String"/>
 		<Attribute name="totalVolume" type="int"/>					
 		<Attribute name="minWaterVolume" type="int"/>				
@@ -9,7 +9,7 @@
 		<Attribute name="emptyVolume" type="int"/>			
 	</Class>
 	
-	<Class name="org.dataentity.datamodel.Valve">
+	<Class name="org.jentity.datamodel.Valve">
 		<Attribute name="name" type="String"/>
 		<Attribute name="flow" type="int"/>				
 		<Attribute name="timeOpened" type="Date"/>		

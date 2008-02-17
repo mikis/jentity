@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <project name="Dataentity">
-  <bannerLeft>
-    <name>Dataentity</name>
-    <src>http://sflogo.sourceforge.net/sflogo.php?group_id=159461&amp;type=2" width="125" height="37" border="0" alt="SourceForge.net Logo"</src>
-    <href>http://sourceforge.net/</href>
-  </bannerLeft>
+   <skin>
+        <groupId>org.apache.maven.skins</groupId>
+        <artifactId>maven-stylus-skin</artifactId>
+        <version>1.0</version>
+    </skin>
   <bannerRight>
-    <src>http://maven.apache.org/images/maven-small.gif</src>
+    <src>http://maven.apache.org/images/logo_maven.jpg</src>
   </bannerRight>
+  <publishDate format="yyyy-MM-dd HH:mm"/>
+  
+  <poweredBy>
+      <logo name="Hosted on SourceForge.net" href="http://sourceforge.net"
+              img="http://sflogo.sourceforge.net/sflogo.php?group_id=113660&amp;type=2"/>
+      <logo name="Build with Maven 2" href="http://maven.apache.org/"
+              img="images/logos/maven-feather.png"/>
+    </poweredBy>
   <body>
     <links>
       <item name="Maven 2" href="http://maven.apache.org/maven2/"/>
@@ -15,8 +23,13 @@
 
     <menu name="Dataentity">
       <item name="Introduction" href="introduction.html"/>
-    </menu>      
+    </menu>    
     
+    <menu name="Examples">
+          <item name="GUI building" href="swing_example.html"/>
+    </menu> 
+    
+    <menu ref="modules" inherit="bottom"/>
     ${reports}
   </body>
 </project>

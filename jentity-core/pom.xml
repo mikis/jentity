@@ -32,14 +32,14 @@
   <build>
       <plugins>
         <plugin>
-          <groupId>jentity</groupId>
+          <groupId>org.jentity</groupId>
           <artifactId>jentity-generator</artifactId>
           <configuration>
          	 <model>${basedir}/src/test/resources/testentity.xml</model>
           </configuration>
           <executions>
-            <phase>compile</phase>
             <execution>
+            <phase>generate-sources</phase>
               <goals>
                 <goal>generate</goal>
               </goals>

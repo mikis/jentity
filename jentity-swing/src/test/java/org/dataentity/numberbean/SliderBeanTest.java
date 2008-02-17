@@ -3,9 +3,10 @@ package org.dataentity.numberbean;
 import javax.swing.JSlider;
 
 import org.dataentity.datamodel.ChangeEventConstraint;
-import org.dataentity.datamodel.ChangeListener;
-import org.dataentity.datamodel.DataEntity;
-import org.dataentity.datamodel.ParameterEnum;
+import org.jentity.datamodel.ChangeListener;
+import org.jentity.datamodel.DataEntity;
+import org.jentity.datamodel.ParameterEnum;
+import org.jentity.numberbean.SliderBean;
 import org.jmock.Mock;
 import org.jmock.MockObjectTestCase;
 import org.jmock.core.Constraint;

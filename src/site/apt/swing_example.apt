@@ -1,0 +1,9 @@
+ -----
+ Swing Example
+ -----
+ -----
+ The Swing module includes an example of using swing beans for creating MVC GUI components with relativly simple code. The example model a container with a valve with water running through, which over time empties the container. 
+ 
+ The container is one model with a associated GUI, the valve is another model with attach GUI and the flow of water is handler by a seperate worker thread. 
+ 
+ The resulting system is 

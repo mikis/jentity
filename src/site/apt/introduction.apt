@@ -6,34 +6,35 @@
 Data objects in the JDK?
  
  The core Java platform doesn't provide much in the way of data object functionality. The default object type declares a handful of methods like toString, equals, hashCode, but one of the first thing one typically does, when using this methods is overriding the method with a more useful implementation. This is not trivial to do correctly, but autogeneration tools exist which can do this for you, by by applying an appropriate iterative operation to the object attributes. More advanced data functionality also exist, like cloneable, compareable, externalizable, etc, which has to be implemented by any data objects wanting to use these features. This is done alone the same line as before, by iteration over the objects attributes in some manor. 
+ When data objects are shared contracts regarding data modification have to be put in place and will proberly need to be inforce by some kind of code preventing incorrect modifications of shared data. This will again be in the form of 'for each attribute remeber to'......  
+ 
  
 The road forward
 
- After having to implementing these kind of operations a sufficient number of this, I started to wonder (in the spirit of OO), whether I could extract this behavior into a super type, which could handle this 'attribute' bookkeeping for me, and I could then settle for defining which attributes should make up the different data objects. After all, the implementation of the relevant methods looked pretty much the same, implemented the function by doing something on each attribute and aggregate the result in some way. 
+ After having to implementing these kind of operations a sufficient number of this, one starts to wonder (in the spirit of OO), whether this behavior could be extract into a super type, which could handle this 'attribute' bookkeeping, and we could then settle for defining which attributes should make up the data objects. After all, the implementation of the relevant methods looked pretty much the same, implemented the function by doing something on each attribute and aggregate the result in some way. 
  
- The first thing which needs to be done is formalizing the notion of attributes into something which can be accessed programmatically in a generic manor. This can be done by defining the attributes on such a data object, lets call it a DataEntity, by a set of enum type parameters/attribute keys
+ The first thing which needs to be done is formalizing the notion of attributes into something which can be accessed programmatically in a generic manor. This can be done by defining the attributes on such a data object, lets call it a DataEntity, by a set of enum type parameters/attribute keys.
  
- The result is that we can iterate over a DataEntitys parameters, and access each of the objects attributes. The implementation of every operation on the DataEntity which uses the full state of the object would be of the form :
-  
-  Result getSomething() \{
-  	Result result = new Result();
-  	Iterator iter = dataentity.getKeys().iterator();
+ The result is that we can iterate over a DataEntitys parameters, and access each of the objects attributes. The implementation of every operation on the DataEntity, which uses the full state of the object would be of the form :
+    
+    Result getSomething() \{\\n    
+      Result result = new Result();\
+  	Iterator iter = dataentity.getKeys().iterator();\
   	while (iter.hasNext() \{
   	 	Enum parameter = iter.next();
-   	        AttributeVisitor visitor = dictionary.getVisitor(parameter);
-     		result = result + visitor.getSomething(); 	 
+   	        Object attribute = getAttribute( parameter );
+     		result = result.aggregate(attribute.getSomething());	 
   	\}
   	return result;
-  \}
+    \}
 
 The Attribute visitor
  
- A problem with the code above is that it assumes the attribute has a getSomething() method to call. This is only the case for operations defined on the generic Object class, and even then we usually what to override the default implementation.
+ A problem with the code above is that it assumes the attribute has a getSomething() method which provides the correct functionality. Some of the more common operations may be defined by the Object class, but even then we usually want to override the default implementation.
  
- To overcome this shortcome we can define a visitor for each parameter, which can provide the needed operation. Lets call the set of attribute visitors the dictionary for the DataEntity. The getSomething operation would then instead look like this: 
+ To overcome this shortcome we can instead use helper classes to implementing the getSomething() operations for different parameter. If we for a concrete dataentity type define a helper for each parameter, it should be possible to create generic functions like the one show above. Helpers which provide generic functionality for different types based on context is also called a Visitor pattern, so let's call these helpers, attibute visitors. The set of attribute visitors we'll denote , the DataEntity dictonary. The getSomething operation would then instead look like this: 
  
-   Result getSomething() \{\
-   	Result result = new Result();\
+   Result getSomething() \{Result result = new Result();\
    	Iterator iter = dataentity.getKeys().iterator();\
    	while (iter.hasNext() \{\
    	        Enum parameter = iter.next();\
@@ -43,30 +44,21 @@ The Attribute visitor
    	\}
    	return result;
   \}
- 
- The task of defining the individual processing of attribute then amount to defining the visitor for each attribute. Fortunately it is possible to define a default object visitor, which mostly delegates operations to the object class methods. This means a simple dictionary could consist of the default visitor for all parameters. The resulting entities participating in usage defining a particular type of dataentity are shown in figure 1.
+  
+ The task of defining the individual processing of attributes then amount to defining the visitor for each parameter. Fortunately it is possible to define a default object visitor, which mostly delegates operations to the object class methods. This means a simple dictionary could consist of a instance of the default visitor for each parameter. The resulting entities participating in defining a particular type of dataentity are shown in figure 1.
   
 [Dataentityclasses.png] Figure 1: Data entity classes.  
 
-Other types of Data Objects
+Other Data Objects implementations
 
- The already exists a number of specialized data object types, like Data Transfer Object, Java Data Object, Service Data Objects etc., but these are all attempts of adding data functionality in a specific context, e.g. persistence, data source decoupling, data transfer. The focus of these data object types are not to increase the functionality of generic data manipulation, where the purpose of the DataEntity is to make as powerful a generic data object. 
+ There already exists a number of specialized data object types, like Data Transfer Object, Java Data Object, Service Data Objects etc. The focus of these data object types are not to increase the functionality of generic data manipulation, but to adding data functionality in a specific context, e.g. persistence, data source decoupling, data transfer. The purpose of the Dataentity where the purpose of the DataEntity framework is to provide a more powerful generic data object. 
  
- There has previously been attempts at adding generic data object functionality, but these have typically being in the form of autogeneration, reflective or aspect-oriented behavior. The problem with these approaches are that they step outside of the normal object oriented code and and resort to 'smarter' functionalities. This results in application behavior, which appears like magic to the average developer and can be very difficult to trace. Furthermore, it is rather difficult to extend design based on autogenerated, reflective or aspect-oriented features.
+ There has also previously been attempts at adding generic data object functionality, but these have typically being in the form of autogeneration, reflective or aspect-oriented behavior. The problem with these approaches are that they step outside of the 'normal' object oriented code and and resort to more exotic functionalities. This results in application behavior which looks like magic to the average developer and can be very difficult to trace. Furthermore, it is rather difficult to extend design based on autogenerated, reflective or aspect-oriented features.
  
+Composite Object
+  The dataentity object implements the composition design pattern, this means dataentity objects can have other dataentity objects as attributes.
+
 Object state 
- 
-
- 
- 
-
-Dataentity
-
- The dataentity object is an attempt to add a more powerful data object to Java. The idea is to formalise the concept of object state, into a set of object attributes, which can be accessed in a generic manner. The result of doing this that it becomes possible to implement data manipulation logic in the super Dataentity type, which specialized data types inherits. 
-
- This is used for implementations of powerful data operations: toString, hashcode, equals, copy(clonable) and externalize. Two dataentity can be be compared to produce a difference object. Difference objects can be used to update state of dataentity objects. 
-
- The dataentity object implements the composition design pattern, this means dataentity objects can have other dataentity objects as attributes.
    
 Dataprocessor
  
@@ -76,13 +68,21 @@ Dataprocessor
 
 Interaction bean 
 
-  A interaction bean provides controlled event handling to/from a dataentity object. 
-  A interaction bean is a logic entity consisting of:
-  - Controller: Processes the event to and from the dataentity. The controller itself is composed of:
-   -- Eventhandler: Detemines which event should be handled or discarded. Used for breaking event loops and avoid processing insignificant events.
-   -- Mapper: Maps data from the outside domain to a dataentity object.
-   -- Dataprocessor structure: Provides data processing functionality.
-  - Connector: Provides a connection between the dataentity and the outside domain. Examples are Swing components or JSP.
+ A interaction bean provides controlled event handling to/from a dataentity object. 
+ A interaction bean is composed of:
+ 
+  * Controller: Processes the event to and from the dataentity. The controller itself is composed of:
+  
+   * Eventhandler: Detemines which event should be handled or discarded. Used for breaking event loops and avoid processing insignificant events.
+   
+   * Mapper: Maps data from the outside domain to a dataentity object.
+   
+   * Dataprocessor structure: Provides data processing functionality.
+   
+  * Connector: Provides a connection between the dataentity and the outside domain. Examples are 
+  Swing components or JSP's.
+ 
+  []
  
 [InteractionBean.png] Figure 2: InteractionBean
   
