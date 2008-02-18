@@ -1,4 +1,4 @@
-package org.dataentity.datamodel;
+package org.jentity.datamodel;
 
 import org.jentity.datamodel.ChangeListener;
 import org.jentity.datamodel.DataEntity;

@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.io.Serializable;
+import java.text.ParseException;
 
 /**
- * Attribute visitors are used for    
- * @author msn
+ * Attribute visitors are used for adapting  
  */
 public interface AttributeVisitor {
     
@@ -20,19 +20,21 @@ public interface AttributeVisitor {
     Object patch(Object original, Object patch);
     
     /**
-     * Returns a copy of the supplied object. The deepth of the copy depends upon the concrete visitor 
+     * Returns a copy of the supplied object. The depth of the copy depends upon the concrete visitor 
      * implementation.
      * @return The copy of the supplied object
      */
-    Object clone(Object obj);   
+    Object copy(Object obj2Copy);
     
     Object readExternal(ObjectInput in) throws IOException, ClassNotFoundException;
     
-    void writeExternal(Serializable obj, ObjectOutput out) throws IOException;
+    void writeExternal(Serializable obj, ObjectOutput out) throws IOException;    
+
+    Object readFromXML(String input) throws ParseException;
     
-    boolean isEqual(Object obj1, Object obj2);
+    public String toXML(Object obj, String indentation);
     
-    Object copy(Object obj2Copy);
+    boolean isEqual(Object obj1, Object obj2);    
     
     String toString(Object obj);
 }

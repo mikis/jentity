@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.io.Serializable;
+import java.text.ParseException;
 
+import org.apache.commons.lang.NotImplementedException;
 import org.jentity.datamodel.DataEntity;
 
 public class DataCoreVisitor implements AttributeVisitor {
@@ -25,9 +27,16 @@ public class DataCoreVisitor implements AttributeVisitor {
      */
     public void writeExternal(Serializable obj, ObjectOutput out) throws IOException {
         out.writeObject(obj);
-
     }
 
+    public Object readFromXML(String input) throws ParseException {
+		return null;
+    }
+
+    public String toXML(Object obj, String indentation) {
+    	return ((DataEntity)obj).toXML(indentation);
+    }
+    
     /**
      * Updates the supplied original data entity with the patch and returns this.
      */

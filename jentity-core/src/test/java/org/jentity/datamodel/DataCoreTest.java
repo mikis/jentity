@@ -1,4 +1,4 @@
-package org.dataentity.datamodel;
+package org.jentity.datamodel;
 
 import java.util.LinkedList;
 

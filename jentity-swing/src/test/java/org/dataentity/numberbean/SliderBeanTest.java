@@ -2,7 +2,7 @@ package org.dataentity.numberbean;
 
 import javax.swing.JSlider;
 
-import org.dataentity.datamodel.ChangeEventConstraint;
+import org.jentity.datamodel.ChangeEventConstraint;
 import org.jentity.datamodel.ChangeListener;
 import org.jentity.datamodel.DataEntity;
 import org.jentity.datamodel.ParameterEnum;

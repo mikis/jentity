@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.io.Serializable;
+import java.text.ParseException;
 
+import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
@@ -30,8 +32,24 @@ public class DefaultAttributeVisitor implements AttributeVisitor {
      */
     public void writeExternal(Serializable obj, ObjectOutput out) throws IOException {
         out.writeObject(obj);
-
     }
+    
+    /**
+     * Maps to the normal serialization operation, e.g. <code>readObject()</code>
+     */
+    public Object readFromXML(String input) throws ParseException {
+        throw new NotImplementedException();
+    }
+
+    /**
+     * Maps to the normal serialization operation, e.g. <code>writeObject()</code>
+     */
+    public String toXML(Object obj, String indentation) {
+    	return indentation+"<attribute>\n"+
+    	indentation+"\t"+obj.toString()+
+    	"\n"+indentation+"</attribute>\n";
+    }
+    
 
     /**
      * Returns the patch itself. The default attribute behaviour for patching is to replace the

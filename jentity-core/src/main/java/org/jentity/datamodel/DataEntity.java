@@ -199,11 +199,11 @@ public abstract class DataEntity {
 
     /**
      * Notifies listeners of change to this data entities data. Data changes will always be 
-     * called through a synchronazation so only one thread will be running a notification at a time.  
+     * called through a synchronization so only one thread will be running a notification at a time.  
      * @param update
      * @throw IllegalStateException Throw if a thread tries to update the data while a notification 
      * is taking place. <p>
-     * Updates are synchronized, so this can only occure if the updating thread is the same as the 
+     * Updates are synchronized, so this can only occur if the updating thread is the same as the 
      * notification thread.
      */
     private void notifyListeners(ChangeListener.ChangeEvent update) throws IllegalStateException {
@@ -223,4 +223,32 @@ public abstract class DataEntity {
     }
 
     public abstract DataEntity createInstance();
+
+	public DataEntity readFromXML(String input) {
+		int endIndex = input.indexOf("\n");
+		String type = input.substring(22, endIndex-1);
+		DataEntity newInstance = null;
+		try {
+			newInstance = (DataEntity)Class.forName(type).newInstance();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		return newInstance;
+	}
+
+	public String toXML(String indentation) {
+    StringBuffer sb = new StringBuffer();
+    sb.append(indentation+"<attribute type="+getClass()+">\n");  
+    Iterator iterator = attributes.keySet().iterator();
+    while (iterator.hasNext()) {
+        ParameterEnum parameter = (ParameterEnum) iterator.next();
+        sb.append(getVisitor(parameter).toXML(getAttribute(parameter), indentation+"\t"));
+    }
+    sb.append(indentation+"</attribute>\n");
+    return sb.toString();
+	}
 }
