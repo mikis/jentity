@@ -29,8 +29,17 @@ public interface AttributeVisitor {
     Object readExternal(ObjectInput in) throws IOException, ClassNotFoundException;
     
     void writeExternal(Serializable obj, ObjectOutput out) throws IOException;    
-
-    Object readFromXML(String input) throws ParseException;
+    
+    /**
+     * 
+     * @param input
+     * @param counter The XML should be read from the counter onward. 
+     * When return from operation the counter must be set to the end of the XML 
+     * defining the attribute. 
+     * @return
+     * @throws ParseException
+     */
+    Object readFromXML(String input, int counter) throws ParseException;
     
     public String toXML(Object obj, String indentation);
     

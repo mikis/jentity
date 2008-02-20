@@ -29,12 +29,12 @@ public class DataCoreVisitor implements AttributeVisitor {
         out.writeObject(obj);
     }
 
-    public Object readFromXML(String input) throws ParseException {
-		return null;
+    public Object readFromXML(String input, int counter) throws ParseException {
+		return DataEntity.readFromXML(input, counter);
     }
 
     public String toXML(Object obj, String indentation) {
-    	return ((DataEntity)obj).toXML(indentation);
+    	return "\n"+((DataEntity)obj).toXML(indentation+"\t")+"\n\t";
     }
     
     /**

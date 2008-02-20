@@ -1,5 +1,6 @@
 package org.jentity.datamodel;
 
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -9,6 +10,7 @@ import java.util.TreeMap;
 import org.apache.commons.lang.ClassUtils;
 import org.jentity.datamodel.visitor.AttributeVisitor;
 import org.jentity.datamodel.visitor.DefaultAttributeVisitor;
+import org.jentity.datamodel.xml.XMLFactory;
 
 /**
  * Implements of the <code>DataEntity</code> pattern.
@@ -170,7 +172,7 @@ public abstract class DataEntity {
     }
     
     /**
-     * Creates a new <code>DataEntity</code> object corresponing to this enity 
+     * Creates a new <code>DataEntity</code> object corresponding to this entity 
      * with the update applied.
      */
     public DataEntity createUpdatedEntity(DataEntity update) {
@@ -223,32 +225,13 @@ public abstract class DataEntity {
     }
 
     public abstract DataEntity createInstance();
+    public abstract Class getParameterEnumClass();
 
-	public DataEntity readFromXML(String input) {
-		int endIndex = input.indexOf("\n");
-		String type = input.substring(22, endIndex-1);
-		DataEntity newInstance = null;
-		try {
-			newInstance = (DataEntity)Class.forName(type).newInstance();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		}
-		return newInstance;
+	public static DataEntity readFromXML(String inputXML, int counter) throws ParseException {
+		return XMLFactory.createDataEntity(inputXML, counter);
 	}
 
-	public String toXML(String indentation) {
-    StringBuffer sb = new StringBuffer();
-    sb.append(indentation+"<attribute type="+getClass()+">\n");  
-    Iterator iterator = attributes.keySet().iterator();
-    while (iterator.hasNext()) {
-        ParameterEnum parameter = (ParameterEnum) iterator.next();
-        sb.append(getVisitor(parameter).toXML(getAttribute(parameter), indentation+"\t"));
-    }
-    sb.append(indentation+"</attribute>\n");
-    return sb.toString();
+	public String toXML(String indentation) {    
+		return XMLFactory.createXML(this, indentation);
 	}
 }

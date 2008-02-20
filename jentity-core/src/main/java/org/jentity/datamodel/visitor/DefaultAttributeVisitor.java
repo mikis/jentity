@@ -37,7 +37,7 @@ public class DefaultAttributeVisitor implements AttributeVisitor {
     /**
      * Maps to the normal serialization operation, e.g. <code>readObject()</code>
      */
-    public Object readFromXML(String input) throws ParseException {
+    public Object readFromXML(String input, int counter) throws ParseException {
         throw new NotImplementedException();
     }
 
@@ -45,15 +45,13 @@ public class DefaultAttributeVisitor implements AttributeVisitor {
      * Maps to the normal serialization operation, e.g. <code>writeObject()</code>
      */
     public String toXML(Object obj, String indentation) {
-    	return indentation+"<attribute>\n"+
-    	indentation+"\t"+obj.toString()+
-    	"\n"+indentation+"</attribute>\n";
+    	return obj.toString();
     }
     
 
     /**
-     * Returns the patch itself. The default attribute behaviour for patching is to replace the
-     * original attibute with the patch.<p>
+     * Returns the patch itself. The default attribute behavior for patching is to replace the
+     * original attribute with the patch.<p>
      * For more fine granulated patching override this method.
      * @param original
      * @param patch

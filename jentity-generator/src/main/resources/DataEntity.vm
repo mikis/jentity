@@ -79,6 +79,10 @@ public class $class.name extends DataEntity {
         }
     }
     
+    public Class getParameterEnumClass() {
+    	return ${parametertype}.class;
+    }
+    
     public DataEntity createInstance() {
     	return new ${class.name}();
     }
