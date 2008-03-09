@@ -2,8 +2,8 @@
 
 <Content>			
 	<Class name="org.jentity.datamodel.TestEntity">
-		<Attribute name="attribute1" type="String"/>
-		<Attribute name="attribute2" type="String"/>				
+		<Attribute name="attribute1" type="String" visitor="StringAttributeVisitor"/>
+		<Attribute name="attribute2" type="String" visitor="StringAttributeVisitor"/>				
 		<Attribute name="attribute3" type="String[]"/>				
 		<Attribute name="attribute4" type="DataEntity" visitor="DataCoreVisitor"/>			
 		<Attribute name="attribute5" type="integer"/>				

@@ -35,28 +35,28 @@ public abstract class XMLFactory {
 	// Consider using a SAX parser for this. In connection with introduction of a 
 	// SAX parser we should separate the XML transformation functionality into a 
 	// module for itself. 
-	public static DataEntity createDataEntity(String inputXML, int counter) throws ParseException {
-		int endIndex = inputXML.indexOf(">");
-		String type = inputXML.substring(23, endIndex);		
+	public static DataEntity createDataEntity(String inputXML, Counter counter) throws ParseException {
+		int endIndex = inputXML.indexOf(">", counter.getValue()+1);
+		String type = inputXML.substring(counter.getValue()+23, endIndex);		
 		DataEntity newInstance = null;
 		try {
 			newInstance = (DataEntity)Class.forName(type).newInstance();
-			counter=endIndex;// Set counter to end of initial dataentity tag
-			if (counter<inputXML.length()) {
-				counter=inputXML.indexOf("<", counter)+1; // Advance counter to next tag
-				endIndex = inputXML.indexOf(">", counter);
-				String tag = inputXML.substring(counter, endIndex);
+			counter.setCounter(endIndex);// Set counter to end of initial dataentity tag
+			if (counter.getValue() < inputXML.length()) {
+				counter.setCounter(inputXML.indexOf("<", counter.getValue())+1); // Advance counter to next tag
+				endIndex = inputXML.indexOf(">", counter.getValue());
+				String tag = inputXML.substring(counter.getValue(), endIndex);
 				if (tag.equals("/dataentity")) {
 
 				} else {
-					ParameterEnum parameter = (ParameterEnum)EnumUtils.getEnum(newInstance.getParameterEnumClass(), inputXML.substring(counter, endIndex));
-					counter = endIndex;
+					ParameterEnum parameter = (ParameterEnum)EnumUtils.getEnum(newInstance.getParameterEnumClass(), inputXML.substring(counter.getValue(), endIndex));
+					counter.setCounter(endIndex);
 					Object attribute = newInstance.getVisitor(parameter).readFromXML(inputXML, counter);
 					newInstance.setAttribute(parameter, attribute);
 				}
-				counter=inputXML.indexOf(">", counter)+1; // Advance counter to end
+				counter.setCounter(inputXML.indexOf(">", counter.getValue())+1); // Advance counter to end
 				
-				System.out.println("Remaining string: "+inputXML.substring(counter));
+				System.out.println("Remaining string: "+inputXML.substring(counter.getValue()));
 			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -66,5 +66,12 @@ public abstract class XMLFactory {
 			e.printStackTrace();
 		}
 		return newInstance;
+	}
+	
+	public static String readAttributeString(String inputXML, Counter counter) {
+		int endIndex  =inputXML.indexOf("<", counter.getValue());
+		String attributeString = inputXML.substring(counter.getValue()+1, endIndex);
+		counter.setCounter(endIndex+1);
+		return attributeString;
 	}
 }

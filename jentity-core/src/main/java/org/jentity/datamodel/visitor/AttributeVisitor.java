@@ -6,6 +6,8 @@ import java.io.ObjectOutput;
 import java.io.Serializable;
 import java.text.ParseException;
 
+import org.jentity.datamodel.xml.Counter;
+
 /**
  * Attribute visitors are used for adapting  
  */
@@ -39,7 +41,7 @@ public interface AttributeVisitor {
      * @return
      * @throws ParseException
      */
-    Object readFromXML(String input, int counter) throws ParseException;
+    Object readFromXML(String input, Counter counter) throws ParseException;
     
     public String toXML(Object obj, String indentation);
     

@@ -2,30 +2,30 @@ package org.jentity.datamodel;
 
 import java.util.LinkedList;
 
-import junit.framework.TestCase;
+import org.testng.annotations.*;
+
+import static org.testng.AssertJUnit.*;
 
 import org.jentity.datamodel.ChangeListener;
 import org.jentity.datamodel.DataEntity;
 import org.jentity.datamodel.TestEntity;
 
-public class DataCoreTest extends TestCase {
-    protected final TestEntity entity = new TestEntity();
+public class DataCoreTest {
+    protected TestEntity entity;
     protected ChangeEventQueue eventQueue; 
 
+    @BeforeMethod
     protected void setUp() throws Exception {
-        super.setUp();
+    	entity = new TestEntity();
         entity.addListener(eventQueue = new ChangeEventQueue());
     }
-
+    
+    @AfterMethod
     protected void tearDown() throws Exception {
         entity.removeListener(eventQueue);
-        super.tearDown();
     }
 
-    public DataCoreTest(String name) {
-        super(name);
-    }
-
+    @Test
     public void testSetGet() {
         assertNull("Actual date was not null initially", entity.getAttribute1());
         
@@ -44,6 +44,7 @@ public class DataCoreTest extends TestCase {
      * Note: If the default attribute equals has been overloaded, 
      * you should use different instances of the attribute when testing the equals functionality.
      */
+    @Test
     public void testEquals() {
         DataEntity model2 = new TestEntity();
         assertTrue("Empty entity not equals to other empty object", entity.equals(model2));    
@@ -60,7 +61,8 @@ public class DataCoreTest extends TestCase {
         model2.setAttribute(TestEntity.ATTRIBUTE3, new String[] { value1 });
         assertTrue("Equals returned false for simlilar entities containing array attributes", entity.equals(model2));   
     }
-    
+
+    @Test
     public void testCopy() {
         String value = "Attribute1";
         entity.setAttribute(TestEntity.ATTRIBUTE1, value);
@@ -73,7 +75,8 @@ public class DataCoreTest extends TestCase {
         copy.setAttribute(TestEntity.ATTRIBUTE1, "Attribute1.2");
         assertEquals("Attribute ændring i kopi påvirkede original", value, entity.getAttribute(TestEntity.ATTRIBUTE1));
     }
-    
+
+    @Test
     public void testUpdate() {
         entity.setAttribute(TestEntity.ATTRIBUTE1, "Attribute1");
         entity.setAttribute(TestEntity.ATTRIBUTE2, "Attribute2");
@@ -84,7 +87,8 @@ public class DataCoreTest extends TestCase {
         entity.update(change);
         assertEquals("Attribute was not update", change.getAttribute(TestEntity.ATTRIBUTE1), entity.getAttribute1());
     }
-    
+
+    @Test
     public void testCompositeUpdate() {
         DataEntity nestedDataEntity = new TestEntity();
         String attribute2 = "Attribute2";
@@ -102,7 +106,8 @@ public class DataCoreTest extends TestCase {
         assertEquals("The attribute in the nested entity wasn't updated", newValue, entity.getAttribute4().getAttribute(TestEntity.ATTRIBUTE1));
         assertEquals("The second attibute in the nnested entity was changed", attribute2, entity.getAttribute4().getAttribute(TestEntity.ATTRIBUTE2));
     }
-    
+
+    @Test
     public void testListener() {
         DataEntity change = entity.copy();
         String value = "This is a test value";
@@ -115,7 +120,7 @@ public class DataCoreTest extends TestCase {
         assertEquals("Wrong update received from model", change, eventQueue.popEvent().getUpdateValues());        
     }
    
-    
+    @Test
     private class ChangeEventQueue implements ChangeListener {
         LinkedList eventList = new LinkedList();
         ChangeListener.ChangeEvent popEvent() {

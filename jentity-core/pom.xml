@@ -1,62 +1,69 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<?xml version="1.0" encoding="UTF-8"?><project>
   <parent>
-    <groupId>org.jentity</groupId>
     <artifactId>jentity</artifactId>
+    <groupId>org.jentity</groupId>
     <version>0.1.0-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>jentity-core</artifactId>
   <name>Datacentric construction core module</name>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.jentity</groupId>
+        <artifactId>jentity-generator</artifactId>
+        <executions>
+          <execution>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <model>${basedir}/src/test/resources/testentity.xml</model>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-jar-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>test-jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
   <dependencies>
     <dependency>
       <groupId>commons-lang</groupId>
       <artifactId>commons-lang</artifactId>
-      <version>2.1</version>
-      <scope>compile</scope>
+      <version>2.3</version>
     </dependency>
     <dependency>
       <groupId>velocity</groupId>
       <artifactId>velocity</artifactId>
-      <version>1.4</version>
+      <version>1.5</version>
+    </dependency>
+    <dependency>
+      <groupId>jmock</groupId>
+      <artifactId>jmock</artifactId>
+      <version>1.2.0</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.testng</groupId>
+      <artifactId>testng</artifactId>
+      <version>5.7</version>
+      <classifier>jdk15</classifier>
     </dependency>
      <dependency>
       <groupId>jmock</groupId>
       <artifactId>jmock</artifactId>
-      <version>1.0.1</version>
+      <version>1.2.0</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
-  <build>
-      <plugins>
-        <plugin>
-          <groupId>org.jentity</groupId>
-          <artifactId>jentity-generator</artifactId>
-          <configuration>
-         	 <model>${basedir}/src/test/resources/testentity.xml</model>
-          </configuration>
-          <executions>
-            <execution>
-            <phase>generate-sources</phase>
-              <goals>
-                <goal>generate</goal>
-              </goals>
-            </execution>
-          </executions>
-        </plugin>
-        <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-       <executions>
-         <execution>
-           <goals>
-             <goal>test-jar</goal>
-           </goals>
-         </execution>
-       </executions>
-     </plugin>
-      </plugins>
-  </build>
 </project>

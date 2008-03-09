@@ -6,8 +6,8 @@ import java.io.ObjectOutput;
 import java.io.Serializable;
 import java.text.ParseException;
 
-import org.apache.commons.lang.NotImplementedException;
 import org.jentity.datamodel.DataEntity;
+import org.jentity.datamodel.xml.Counter;
 
 public class DataCoreVisitor implements AttributeVisitor {
 
@@ -29,7 +29,7 @@ public class DataCoreVisitor implements AttributeVisitor {
         out.writeObject(obj);
     }
 
-    public Object readFromXML(String input, int counter) throws ParseException {
+    public Object readFromXML(String input, Counter counter) throws ParseException {
 		return DataEntity.readFromXML(input, counter);
     }
 

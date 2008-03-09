@@ -10,6 +10,7 @@ import java.util.TreeMap;
 import org.apache.commons.lang.ClassUtils;
 import org.jentity.datamodel.visitor.AttributeVisitor;
 import org.jentity.datamodel.visitor.DefaultAttributeVisitor;
+import org.jentity.datamodel.xml.Counter;
 import org.jentity.datamodel.xml.XMLFactory;
 
 /**
@@ -227,7 +228,7 @@ public abstract class DataEntity {
     public abstract DataEntity createInstance();
     public abstract Class getParameterEnumClass();
 
-	public static DataEntity readFromXML(String inputXML, int counter) throws ParseException {
+	public static DataEntity readFromXML(String inputXML, Counter counter) throws ParseException {
 		return XMLFactory.createDataEntity(inputXML, counter);
 	}
 

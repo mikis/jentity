@@ -10,6 +10,9 @@ import org.jentity.numberbean.SliderBean;
 import org.jmock.Mock;
 import org.jmock.MockObjectTestCase;
 import org.jmock.core.Constraint;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
 
 public class SliderBeanTest extends MockObjectTestCase {
 	private  SliderBeanModel model;
@@ -17,16 +20,16 @@ public class SliderBeanTest extends MockObjectTestCase {
 	protected SliderBean bean;
 	private Mock mockListener; 
 
+    @BeforeTest
 	protected void setUp() throws Exception {
-		super.setUp();
-
+    	super.setUp();
 		model = new SliderBeanModel();
 		// Initialize model
 		model.setAttribute(SliderBeanModel.MIN, new Integer(0));
 		model.setAttribute(SliderBeanModel.MAX, new Integer(1000));
 		model.setAttribute(SliderBeanModel.VALUE, new Integer(500));
 		
-		slider =new JSlider();
+		slider = new JSlider();
 		bean = new SliderBean(slider,model, SliderBeanModel.VALUE,SliderBeanModel.MIN, SliderBeanModel.MAX);
 		bean.attachToModel();
 		mockListener = mock(ChangeListener.class);
@@ -34,6 +37,7 @@ public class SliderBeanTest extends MockObjectTestCase {
 		model.addListener((ChangeListener) mockListener.proxy());
 	}
 
+    @AfterTest
 	protected void tearDown() throws Exception {
 		super.tearDown();
 	}
@@ -41,6 +45,7 @@ public class SliderBeanTest extends MockObjectTestCase {
 	/**
 	 * User update of the min attribute should cause a update of the min attribute in the model.
 	 */
+    @Test
 	public void testUserEventMin() {
 		Integer min = new Integer(100);
 		SliderBeanModel expectedUpdate = new SliderBeanModel();
@@ -48,7 +53,8 @@ public class SliderBeanTest extends MockObjectTestCase {
 		mockListener.expects(once()).method("handleUpdate").with( changeEventUpdateEq(expectedUpdate) );
 		slider.setMinimum(min.intValue());
 	}
-	
+
+    @Test
 	public void testUserEventMax() {
 		Integer max = new Integer(900);
 		SliderBeanModel expectedUpdate = new SliderBeanModel();
@@ -56,7 +62,8 @@ public class SliderBeanTest extends MockObjectTestCase {
 		mockListener.expects(once()).method("handleUpdate").with( changeEventUpdateEq(expectedUpdate) );
 		slider.setMaximum(max.intValue());
 	}
-	
+
+    @Test
 	public void testUserEventValue() {
 		Integer value = new Integer(900);
 		SliderBeanModel expectedUpdate = new SliderBeanModel();
@@ -68,6 +75,7 @@ public class SliderBeanTest extends MockObjectTestCase {
 	/**
 	 * Update of the models min attribute should cause a update of the JSliders min attribute. 
 	 */
+    @Test
 	public void testModelEventMin() {
 		Integer min = new Integer(100);
 		SliderBeanModel update = new SliderBeanModel();
@@ -76,7 +84,8 @@ public class SliderBeanTest extends MockObjectTestCase {
 		model.update(update);
 		assertEquals("Wrong slider min attribute after update", min.intValue(), slider.getMinimum());
 	}
-	
+
+    @Test
 	public void testModelEventMax() {
 		Integer max = new Integer(100);
 		SliderBeanModel update = new SliderBeanModel();
@@ -85,7 +94,8 @@ public class SliderBeanTest extends MockObjectTestCase {
 		model.update(update);
 		assertEquals("Wrong slider max attribute after update", max.intValue(), slider.getMaximum());
 	}
-	
+
+    @Test
 	public void testModelEventValue() {
 		Integer value = new Integer(100);
 		SliderBeanModel update = new SliderBeanModel();
@@ -98,6 +108,7 @@ public class SliderBeanTest extends MockObjectTestCase {
 	/**
 	 * Update the model. The Bean will be notified of this and will be update, but should not generate another update.
 	 */
+    @Test
 	public void testEventLoopModelEvent() {
 		SliderBeanModel update = new SliderBeanModel();
 		update.setAttribute(SliderBeanModel.VALUE, new Integer(900));   
@@ -116,6 +127,11 @@ public class SliderBeanTest extends MockObjectTestCase {
 
 		public DataEntity createInstance() {
 			return new SliderBeanModel();
+		}
+
+		@Override
+		public Class getParameterEnumClass() {
+			return SliderBeanModelParameter.class;
 		}		
 	}
 	

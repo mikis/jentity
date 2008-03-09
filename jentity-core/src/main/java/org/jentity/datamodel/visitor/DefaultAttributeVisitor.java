@@ -9,6 +9,7 @@ import java.text.ParseException;
 import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.jentity.datamodel.xml.Counter;
 
 public class DefaultAttributeVisitor implements AttributeVisitor {
 
@@ -35,9 +36,14 @@ public class DefaultAttributeVisitor implements AttributeVisitor {
     }
     
     /**
-     * Maps to the normal serialization operation, e.g. <code>readObject()</code>
+     * Maps to the normal serialization operation, e.g. <code>readObject()</code>.
+     * @throws NotImplementedException This operation is not implemented, so a 
+     * <code>NotImplementedException</code> is throw when this method is called,
+     * unless it is overloaded by a specialized operation implementation the concrete 
+     * XML loading. <p>
+     * 
      */
-    public Object readFromXML(String input, int counter) throws ParseException {
+    public Object readFromXML(String input, Counter counter) throws ParseException, NotImplementedException {
         throw new NotImplementedException();
     }
 
