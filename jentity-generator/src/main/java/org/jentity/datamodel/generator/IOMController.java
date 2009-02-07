@@ -4,14 +4,14 @@ import java.util.*;
 
 public class IOMController {
 
-  private static ArrayList classes = new ArrayList();
-  private static ArrayList associations = new ArrayList();
+  private static ArrayList<IOMClass> classes = new ArrayList<IOMClass>();
+  private static ArrayList<IOMAssociation> associations = new ArrayList<IOMAssociation>();
 
-  public static ArrayList getClasses() {
+  public static ArrayList<IOMClass> getClasses() {
     return classes;
   }
 
-  public static ArrayList getAssociations() {
+  public static ArrayList<IOMAssociation> getAssociations() {
     return associations;
   }
 

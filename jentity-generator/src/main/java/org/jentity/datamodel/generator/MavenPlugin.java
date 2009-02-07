@@ -62,6 +62,7 @@ public class MavenPlugin extends AbstractMojo {
         }
         
         if (project != null) {
+            getLog().info("Adding generate source folder "+outputDirectory+" to compile source path");
             project.addCompileSourceRoot(outputDirectory);
         }
     }

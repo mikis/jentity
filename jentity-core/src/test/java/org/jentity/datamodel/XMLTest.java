@@ -40,7 +40,7 @@ public class XMLTest {
     			entity, output);
     }
 
-    @Test
+    //@Test
     public void testToXMLOneDataEntityAtribute() throws ParseException {
     	entity.setAttribute4(new TestEntity());
     	

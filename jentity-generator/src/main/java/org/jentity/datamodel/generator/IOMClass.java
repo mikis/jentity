@@ -8,8 +8,8 @@ public class IOMClass {
   private String doc = "";
   private String stereotype = "";
 
-  private ArrayList attributes = new ArrayList();
-  private ArrayList operations = new ArrayList();
+  private ArrayList<IOMAttribute> attributes = new ArrayList<IOMAttribute>();
+  private ArrayList<IOMOperation> operations = new ArrayList<IOMOperation>();
 
   public String getName() {
     return name;
@@ -27,7 +27,7 @@ public class IOMClass {
     this.stereotype = stereotype;
   }
 
-  public ArrayList getAttributes() {
+  public ArrayList<IOMAttribute> getAttributes() {
     return attributes;
   }
 
@@ -36,7 +36,7 @@ public class IOMClass {
     attribute.setClassParent(this);
   }
 
-  public ArrayList getOperations() {
+  public ArrayList<IOMOperation> getOperations() {
     return operations;
   }
 
@@ -45,8 +45,8 @@ public class IOMClass {
     operation.setClassParent(this);
   }
 
-  public ArrayList getMyAssociations() {
-    ArrayList ret = new ArrayList();
+  public ArrayList<IOMAssociation> getMyAssociations() {
+    ArrayList<IOMAssociation> ret = new ArrayList<IOMAssociation>();
     for (int i = 0; i < IOMController.getAssociations().size() ; i++) {
       IOMAssociation ass = (IOMAssociation) IOMController.getAssociations().get(i);
       if(ass.getStartRole().getClassInvolved().getName().equals(this.name)

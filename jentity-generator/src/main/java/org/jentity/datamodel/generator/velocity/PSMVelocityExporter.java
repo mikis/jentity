@@ -21,8 +21,6 @@ public class PSMVelocityExporter implements Exporter {
 
   public PSMVelocityExporter() {
       setOutputPath(System.getProperty("com.codegenerator.outputpath", ""));
-
-      System.out.println("Writing to: "+System.getProperty("com.codegenerator.outputpath"));
   }
   
   public void initialize() throws Exception {

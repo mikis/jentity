@@ -1,27 +1,17 @@
 <?xml	version="1.0"	encoding="UTF-8"?>
 
 <Content>			
-	<Class name="org.jaccept.TestState">
-		<Attribute name="autoStimuli" type="boolean" 
-		doc="Indicates whether JAccept should supply stimuli to the tests. This is ofcourse \n
-only possible, if test code has been created, defining the stimuli"/>
-		
-		<Attribute name="autoAssertion" type="boolean" 
-		doc="Indicates if JAccept should assert the correctness of the test results to the tests.\n
-This is ofcourse only possible, if assertion code has been implemented for the test steps"/>		
-	
-		<Attribute name="specificationMode" type="boolean" 
-		doc="true if JAccept is running in specification mode. Specification mode is used \n
-to run the test code to create test specification, this means only the documentation \n
-operations are run."/>
-		
-		<Attribute name="blocking" type="boolean" 
-		doc="Indicates whether the test block on test steps. If blocking is enabled some \n
-other proces needs to continue the test after each test step. This could for example be \n
-the tester performing the test."/>
-
-	<Attribute name="stepCounter" type="int" 
-		doc="The current step number"/>
+	<Class name="org.jentity.datamodel.Container">
+		<Attribute name="name" type="String"/>
+		<Attribute name="totalVolume" type="int"/>					
+		<Attribute name="minWaterVolume" type="int"/>				
+		<Attribute name="waterVolume" type="int"/>			
+		<Attribute name="emptyVolume" type="int"/>			
 	</Class>
 	
+	<Class name="org.jentity.datamodel.Valve">
+		<Attribute name="flow" type="int"/>				
+		<Attribute name="timeOpened" type="Date"/>		
+		<Attribute name="open" type="boolean"/>			
+	</Class>
 </Content>

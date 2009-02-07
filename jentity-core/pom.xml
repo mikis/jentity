@@ -2,7 +2,7 @@
   <parent>
     <artifactId>jentity</artifactId>
     <groupId>org.jentity</groupId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.2.0-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>jentity-core</artifactId>
@@ -21,6 +21,7 @@
           </execution>
         </executions>
         <configuration>
+          <model>${basedir}/src/test/resources/testentity.xml</model>
           <model>${basedir}/src/test/resources/testentity.xml</model>
         </configuration>
       </plugin>
@@ -43,11 +44,6 @@
       <version>2.3</version>
     </dependency>
     <dependency>
-      <groupId>velocity</groupId>
-      <artifactId>velocity</artifactId>
-      <version>1.5</version>
-    </dependency>
-    <dependency>
       <groupId>jmock</groupId>
       <artifactId>jmock</artifactId>
       <version>1.2.0</version>
@@ -57,13 +53,8 @@
       <groupId>org.testng</groupId>
       <artifactId>testng</artifactId>
       <version>5.7</version>
-      <classifier>jdk15</classifier>
-    </dependency>
-     <dependency>
-      <groupId>jmock</groupId>
-      <artifactId>jmock</artifactId>
-      <version>1.2.0</version>
       <scope>test</scope>
+      <classifier>jdk15</classifier>
     </dependency>
   </dependencies>
 </project>

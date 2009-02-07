@@ -2,7 +2,7 @@
   <parent>
     <artifactId>jentity</artifactId>
     <groupId>org.jentity</groupId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.2.0-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>jentity-swing</artifactId>
@@ -24,26 +24,13 @@
           <model>${basedir}/src/main/resources/model.xml</model>
         </configuration>
       </plugin>
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>RELEASE</version>
-        <configuration>
-          <compilerVersion>1.6</compilerVersion>
-          <source>1.4</source>
-          <target>1.4</target>
-          <debug>true</debug>
-          <showDeprecation>true</showDeprecation>
-          <showWarnings>true</showWarnings>
-          <optimize>false</optimize>
-        </configuration>
-      </plugin>
     </plugins>
   </build>
   <dependencies>
     <dependency>
       <groupId>org.jentity</groupId>
       <artifactId>jentity-core</artifactId>
-      <version>0.1.0-SNAPSHOT</version>
+      <version>0.2.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
@@ -60,7 +47,7 @@
     <dependency>
       <groupId>org.jentity</groupId>
       <artifactId>jentity-core</artifactId>
-      <version>0.1.0-SNAPSHOT</version>
+      <version>0.2.0-SNAPSHOT</version>
       <type>test-jar</type>
       <scope>test</scope>
     </dependency>
