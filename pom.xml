@@ -10,7 +10,7 @@
 		<module>jentity-core</module>
 		<module>jentity-swing</module>
 	</modules>
-	<version>0.2.0-SNAPSHOT</version>
+	<version>0.2-SNAPSHOT</version>
 	<description>
 		The Jentity framework attempts to provide the Java platform with more powerful building blocks
 		for integrating objects and components. The framework focuses on the challenge of maintaining 
@@ -55,9 +55,20 @@
 		<url>http://svn.sourceforge.net/viewcvs.cgi/jentity</url>
 	</scm>
 	<distributionManagement>
+		<repository>
+			<id>agilos.org</id>
+			<name>Agilos Repo</name>
+			<url>scp://agilos.org/var/www/repo</url>
+		</repository>
+		<snapshotRepository>
+			<uniqueVersion>true</uniqueVersion>
+			<id>agilos.org</id>
+			<name>Agilos Snapshot Repo</name>
+			<url>scp://agilos.org/var/www/repo-snapshot</url>
+		</snapshotRepository>
 		<site>
-			<id>website</id>
-			<url>scp://www.mycompany.com/www/docs/project/</url>
+			<id>agilos.org</id>
+			<url>scp://agilos.org/var/www/maven/zendesk/${project.version}</url>
 		</site>
 	</distributionManagement>
 	<build>
