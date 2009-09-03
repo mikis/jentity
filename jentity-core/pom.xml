@@ -22,7 +22,6 @@
         </executions>
         <configuration>
           <model>${basedir}/src/test/resources/testentity.xml</model>
-          <model>${basedir}/src/test/resources/testentity.xml</model>
         </configuration>
       </plugin>
       <plugin>

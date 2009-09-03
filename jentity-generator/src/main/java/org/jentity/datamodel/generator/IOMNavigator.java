@@ -27,7 +27,7 @@ public class IOMNavigator {
       }
 
       // Associtaion Navigation
-      ArrayList associations = cl.getMyAssociations();
+      ArrayList<IOMAssociation> associations = cl.getMyAssociations();
       for (int j = 0; j < associations.size(); j++) {
         IOMAssociation ass = (IOMAssociation) associations.get(j);
         exporter.startAssociation(ass,cl);

@@ -58,17 +58,17 @@
 		<repository>
 			<id>agilos.org</id>
 			<name>Agilos Repo</name>
-			<url>scp://agilos.org/var/www/repo</url>
+			<url>scp://agilos.org/var/www/maven/repo</url>
 		</repository>
 		<snapshotRepository>
 			<uniqueVersion>true</uniqueVersion>
 			<id>agilos.org</id>
 			<name>Agilos Snapshot Repo</name>
-			<url>scp://agilos.org/var/www/repo-snapshot</url>
+			<url>scp://agilos.org/var/www/maven/repo-snapshot</url>
 		</snapshotRepository>
 		<site>
 			<id>agilos.org</id>
-			<url>scp://agilos.org/var/www/maven/zendesk/${project.version}</url>
+			<url>scp://agilos.org/var/www/maven/sites/jentity/${project.version}</url>
 		</site>
 	</distributionManagement>
 	<build>

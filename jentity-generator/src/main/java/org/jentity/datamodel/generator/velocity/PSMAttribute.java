@@ -7,7 +7,6 @@ public class PSMAttribute {
   private String type;
   private String visitor;
   private String nameUpper;
-  private String nameAllUpper;
   private String javaDoc;
   
   private String toObjectBlock;

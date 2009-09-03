@@ -129,6 +129,7 @@ public class SliderBeanTest extends MockObjectTestCase {
 			return new SliderBeanModel();
 		}
 
+		@SuppressWarnings("unchecked")
 		@Override
 		public Class getParameterEnumClass() {
 			return SliderBeanModelParameter.class;

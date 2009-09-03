@@ -18,8 +18,8 @@ import org.jentity.datamodel.xml.XMLFactory;
  */
 public abstract class DataEntity {
     private boolean lock = false;
-    private HashMap attributes = new HashMap();    
-    protected transient LinkedList modelListeners = new LinkedList();    
+    private HashMap<ParameterEnum, Object> attributes = new HashMap<ParameterEnum, Object>();    
+    protected transient LinkedList<ChangeListener> modelListeners = new LinkedList<ChangeListener>();    
     private boolean notifying = false;
     protected transient DataProcessor preprocessor;
     protected transient DataProcessor postprocessor;
@@ -37,12 +37,12 @@ public abstract class DataEntity {
     /**
      * Sets the specified attribute to the indicated value
      */
-    public void setAttribute(Object key, Object value) {
+    public void setAttribute(ParameterEnum key, Object value) {
         DataEntity update = createInstance();
         update.set(key,value); 
         update(update);
     }
-    private void set(Object key, Object value) {
+    private void set(ParameterEnum key, Object value) {
         if (!lock) {
             attributes.put(key, value);
         } else {
@@ -66,7 +66,7 @@ public abstract class DataEntity {
         return attributes.containsKey(key);
     }
     
-    public Set getKeys() {
+    public Set<ParameterEnum> getKeys() {
         return attributes.keySet();
     }
     /**
@@ -81,9 +81,9 @@ public abstract class DataEntity {
         update.setLock(true);
         
         DataEntity oldValues = createInstance();
-        Iterator iter = update.getKeys().iterator();
+        Iterator<ParameterEnum> iter = update.getKeys().iterator();
         while (iter.hasNext()) {
-            ParameterEnum parameter = (ParameterEnum) iter.next(); 
+            ParameterEnum parameter = iter.next(); 
             // The original attribute should be copied, it will potentially be changed during the patch
             oldValues.set(parameter, getVisitor(parameter).copy(getAttribute(parameter)));
             Object patchedAttribute = getVisitor(parameter).patch(this.getAttribute(parameter), update.getAttribute(parameter));
@@ -129,9 +129,9 @@ public abstract class DataEntity {
     /**
      * Creates a copy of the core. The depth of the copy depends on the implementation.
      */
-    public DataEntity copy() {
+	public DataEntity copy() {
         DataEntity copy = createInstance();
-        copy.attributes = (HashMap)attributes.clone();
+        copy.attributes = (HashMap<ParameterEnum,Object>)attributes.clone();
         copy.preprocessor = preprocessor;
         copy.postprocessor = postprocessor;
         return copy;
@@ -141,11 +141,11 @@ public abstract class DataEntity {
      * Return a string representation of the attribute defined in this object
      */
     public String toString() {
-        TreeMap sortedAttributes = new TreeMap(attributes);
+        TreeMap<ParameterEnum,Object> sortedAttributes = new TreeMap<ParameterEnum,Object>(attributes);
         StringBuffer sb = new StringBuffer();
         sb.append(ClassUtils.getShortClassName(getClass()));  
         if (lock) sb.append("(Locked)");
-        Iterator iterator = sortedAttributes.keySet().iterator();
+        Iterator<ParameterEnum> iterator = sortedAttributes.keySet().iterator();
         while (iterator.hasNext()) {
             ParameterEnum parameter = (ParameterEnum) iterator.next();
             sb.append("\n"+parameter+" = " + getVisitor(parameter).toString(getAttribute(parameter)));
@@ -163,7 +163,7 @@ public abstract class DataEntity {
         
         if (attributes.size() != other.getKeys().size()) return false; 
         
-        Iterator iterator = attributes.keySet().iterator();
+        Iterator<ParameterEnum> iterator = attributes.keySet().iterator();
         while (iterator.hasNext()) {
             ParameterEnum parameter = (ParameterEnum) iterator.next();
             if (!getVisitor(parameter).isEqual(getAttribute(parameter), other.getAttribute(parameter))) return false;
@@ -186,7 +186,7 @@ public abstract class DataEntity {
      * the attribute set. 
      */
     public void addListener(ChangeListener listener) {
-        modelListeners = (LinkedList)modelListeners.clone();
+        modelListeners = (LinkedList<ChangeListener>)modelListeners.clone();
         modelListeners.add(listener);
         DataEntity entity = copy();
         listener.handleUpdate(new ChangeListener.ChangeEvent(entity, createInstance(), entity));
@@ -196,7 +196,7 @@ public abstract class DataEntity {
      * Removes the indicated listener.
      */
     public void removeListener(ChangeListener listener) {
-        modelListeners = (LinkedList)modelListeners.clone();
+        modelListeners = (LinkedList<ChangeListener>)modelListeners.clone();
         modelListeners.remove(listener);
     }
 
@@ -213,7 +213,7 @@ public abstract class DataEntity {
     	if (!notifying) {
     		try {
     			notifying = true;
-    			for (Iterator iter = modelListeners.iterator(); iter.hasNext();) {
+    			for (Iterator<ChangeListener> iter = modelListeners.iterator(); iter.hasNext();) {
     				ChangeListener listener = (ChangeListener) iter.next();
     				listener.handleUpdate(update);
     			}
@@ -221,12 +221,12 @@ public abstract class DataEntity {
     			notifying = false;
     		}
     	} else {
-    		throw new IllegalStateException("Forsøg på at opdateret data i i notifikationthread");
+    		throw new IllegalStateException("Forsï¿½g pï¿½ at opdateret data i i notifikationthread");
     	}
     }
 
     public abstract DataEntity createInstance();
-    public abstract Class getParameterEnumClass();
+    public abstract Class<ParameterEnum> getParameterEnumClass();
 
 	public static DataEntity readFromXML(String inputXML, Counter counter) throws ParseException {
 		return XMLFactory.createDataEntity(inputXML, counter);

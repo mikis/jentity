@@ -2,6 +2,7 @@ package org.jentity;
 
 import org.jentity.datamodel.DataEntity;
 import org.jentity.datamodel.DataProcessor;
+import org.jentity.datamodel.ParameterEnum;
 
 public class ButtonController {
     protected final DataEntity model;
@@ -16,7 +17,7 @@ public class ButtonController {
         };
     }
     
-    public void update(Object parameter, Object value) {
+    public void update(ParameterEnum parameter, Object value) {
         DataEntity change = model.createInstance();
         change.setAttribute(parameter, value);
         processor.process(change);    

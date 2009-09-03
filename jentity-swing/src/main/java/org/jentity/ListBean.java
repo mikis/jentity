@@ -25,10 +25,11 @@ public class ListBean extends CompositeView {
         this.parameter = param;
         addGUIBean(new DefaultGUIBean(model, 
             new ChangeListener() {
-            public void handleUpdate(ChangeListener.ChangeEvent dataEntity) {
+            @SuppressWarnings("unchecked")
+			public void handleUpdate(ChangeListener.ChangeEvent dataEntity) {
                 if (dataEntity.getUpdateValues().isDefined(parameter)) {
-                	List modelList = (List)dataEntity.getUpdateValues().getAttribute(parameter);
-                	if (modelList != listModel.getModel()) { // A new list instance has bben set in the model
+                	List<Object> modelList = (List<Object>)dataEntity.getUpdateValues().getAttribute(parameter);
+                	if (modelList != listModel.getModel()) { // A new list instance has been set in the model
                 		listModel.setModel(modelList);
                 	}
                 }
@@ -61,13 +62,13 @@ public class ListBean extends CompositeView {
     }
     
     private class ListModel extends AbstractListModel {
-    	List list;
+    	List<Object> list;
     	
-    	private void setModel(List list) {
+    	private void setModel(List<Object> list) {
     		this.list = list;
     	}
     	
-    	private List getModel() {
+    	private List<Object> getModel() {
     		return list;
     	}
     	

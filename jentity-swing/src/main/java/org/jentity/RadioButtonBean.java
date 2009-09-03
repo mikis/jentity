@@ -11,6 +11,7 @@ import javax.swing.JRadioButton;
 
 import org.jentity.datamodel.ChangeListener;
 import org.jentity.datamodel.DataEntity;
+import org.jentity.datamodel.ParameterEnum;
 
 /**
  * Enables radiobuttons to be attached to a <code>DataEntity</code> model. The bean includes the normal button group 
@@ -22,11 +23,11 @@ public abstract class RadioButtonBean implements GUIBean {
     final JRadioButton button;
     protected ButtonController controller;
     protected final ChangeListener listener;
-    final List additionalListeners = new LinkedList();
-    private Object parameter;
+    final List<ChangeListener> additionalListeners = new LinkedList<ChangeListener>();
+    private ParameterEnum parameter;
     private Object value;
     
-    public RadioButtonBean(Object param,
+    public RadioButtonBean(ParameterEnum param,
                            Object selectValue,
                            JRadioButton view,
                            DataEntity globalModel) {
@@ -80,14 +81,14 @@ public abstract class RadioButtonBean implements GUIBean {
     
     public void attachToModel() {
         model.addListener(listener);
-        for (Iterator iter = additionalListeners.iterator(); iter.hasNext();) {
+        for (Iterator<ChangeListener> iter = additionalListeners.iterator(); iter.hasNext();) {
             ChangeListener additionalListener = (ChangeListener) iter.next();
             model.addListener(additionalListener);
         }
     }
     public void detachFromModel() {
         model.removeListener(listener);
-        for (Iterator iter = additionalListeners.iterator(); iter.hasNext();) {
+        for (Iterator<ChangeListener> iter = additionalListeners.iterator(); iter.hasNext();) {
             ChangeListener additionalListener = (ChangeListener) iter.next();
             model.removeListener(additionalListener);
         }

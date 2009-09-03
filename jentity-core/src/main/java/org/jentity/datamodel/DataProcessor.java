@@ -11,7 +11,7 @@ public abstract class DataProcessor {
         this.name = name;
     }
     
-    private final List subControllers = new LinkedList();
+    private final List<DataProcessor> subControllers = new LinkedList<DataProcessor>();
     
     public void addSubprocessor(DataProcessor subprocessor) {
         subControllers.add(subprocessor);  
@@ -19,11 +19,11 @@ public abstract class DataProcessor {
     
     /**
      * Process the supplied data with the business rules defined in the concrete processor. 
-     * After this subprocessers are applied.
+     * After this subprocessOrs are applied.
      */
     public final void process(DataEntity data) {
         processEntity(data);
-        for (Iterator iter = subControllers.iterator(); iter.hasNext();) {
+        for (Iterator<DataProcessor> iter = subControllers.iterator(); iter.hasNext();) {
             DataProcessor subcontroller = (DataProcessor) iter.next();
             subcontroller.process(data);
         }
@@ -41,7 +41,7 @@ public abstract class DataProcessor {
         sb.append(name); 
         if (subControllers.size() > 0) {
             sb.append("  Subcontrollers: ");
-            for (Iterator iter = subControllers.iterator(); iter.hasNext();) {
+            for (Iterator<DataProcessor> iter = subControllers.iterator(); iter.hasNext();) {
                 DataProcessor subcontroller = (DataProcessor) iter.next();
                 sb.append("\n");
                 subcontroller.appendLevelIndentedString(sb, level+1);                
@@ -50,8 +50,8 @@ public abstract class DataProcessor {
     }
     
     /**
-     * Provides a representation of this processer with all subprocessers.
-     * The processer hierachy is represented as a multiline tree.
+     * Provides a representation of this processor with all subprocessOrs.
+     * The processor hierarchy is represented as a multiline tree.
      */
     public String toString() {
         StringBuffer sb = new StringBuffer();    

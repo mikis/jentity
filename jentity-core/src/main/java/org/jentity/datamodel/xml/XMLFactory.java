@@ -15,7 +15,7 @@ public abstract class XMLFactory {
 	public static String createXML(DataEntity dataentity, String indentation) {	
 		StringBuffer sb = new StringBuffer();
 	    sb.append(indentation+"<dataentity type="+dataentity.getClass()+">\n");  
-	    Iterator iterator = dataentity.getKeys().iterator();
+	    Iterator<ParameterEnum> iterator = dataentity.getKeys().iterator();
 	    while (iterator.hasNext()) {
 	        ParameterEnum parameter = (ParameterEnum) iterator.next();
 	        sb.append(indentation+"\t<"+parameter.getName()+">");

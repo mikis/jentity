@@ -12,6 +12,7 @@ import javax.swing.JCheckBox;
 import org.jentity.datamodel.ChangeListener;
 import org.jentity.datamodel.DataEntity;
 import org.jentity.datamodel.DataProcessor;
+import org.jentity.datamodel.ParameterEnum;
 
 /**
  * Enables checkboxes to be attached to a <code>DataEntity</code> model. 
@@ -21,8 +22,8 @@ public class CheckBoxBean implements GUIBean {
     final JCheckBox button;
     protected ButtonController controller;
     protected final ChangeListener listener;
-    final List additionalListeners = new LinkedList();
-    private Object parameter;
+    final List<ChangeListener> additionalListeners = new LinkedList<ChangeListener>();
+    private ParameterEnum parameter;
     private final EventGuard guard = new EventGuard();
     
 	protected final DataProcessor processor = new DataProcessor("Text") {
@@ -31,7 +32,7 @@ public class CheckBoxBean implements GUIBean {
         }
     };
     
-    public CheckBoxBean(final Object param,
+    public CheckBoxBean(final ParameterEnum param,
                         final JCheckBox view,
                         final DataEntity model) {
         parameter = param;
@@ -86,15 +87,15 @@ public class CheckBoxBean implements GUIBean {
     
     public void attachToModel() {
         model.addListener(listener);
-        for (Iterator iter = additionalListeners.iterator(); iter.hasNext();) {
-            ChangeListener additionalListener = (ChangeListener) iter.next();
+        for (Iterator<ChangeListener> iter = additionalListeners.iterator(); iter.hasNext();) {
+            ChangeListener additionalListener = iter.next();
             model.addListener(additionalListener);
         }
     }
     public void detachFromModel() {
         model.removeListener(listener);
-        for (Iterator iter = additionalListeners.iterator(); iter.hasNext();) {
-            ChangeListener additionalListener = (ChangeListener) iter.next();
+        for (Iterator<ChangeListener> iter = additionalListeners.iterator(); iter.hasNext();) {
+            ChangeListener additionalListener = iter.next();
             model.removeListener(additionalListener);
         }
     }        

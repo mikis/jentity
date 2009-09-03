@@ -7,7 +7,7 @@ public class IOMOperation {
   private String name;
   private String returnType;
 
-  private ArrayList parameters = new ArrayList();
+  private ArrayList<IOMParameter> parameters = new ArrayList<IOMParameter>();
   private IOMClass classParent = null;
 
   public String getName() {
@@ -26,7 +26,7 @@ public class IOMOperation {
     this.returnType = returnType;
   }
 
-  public ArrayList getParameters() {
+  public ArrayList<IOMParameter> getParameters() {
     return parameters;
   }
 

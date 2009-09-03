@@ -18,7 +18,7 @@ public class GeneratorUtility {
 
   // Type conversion
 
-  private static Hashtable typeConvertor = new Hashtable();
+  private static Hashtable<String,String> typeConvertor = new Hashtable<String,String>();
   static {
     typeConvertor.put("integer","int");
     typeConvertor.put("boolean","boolean");

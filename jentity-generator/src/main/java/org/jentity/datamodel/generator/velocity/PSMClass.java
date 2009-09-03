@@ -8,9 +8,9 @@ public class PSMClass {
   private String packageName;
   private String name;
   private String javaDoc;
-  private ArrayList attributes = new ArrayList();
-  private ArrayList singleAssociations = new ArrayList();
-  private ArrayList multiAssociations = new ArrayList();
+  private ArrayList<PSMAttribute> attributes = new ArrayList<PSMAttribute>();
+  private ArrayList<PSMAssociation> singleAssociations = new ArrayList<PSMAssociation>();
+  private ArrayList<PSMAssociation> multiAssociations = new ArrayList<PSMAssociation>();
 
   public String getName() {
     return name;
@@ -31,7 +31,7 @@ public class PSMClass {
     }
   }
 
-  public ArrayList getAttributes() {
+  public ArrayList<PSMAttribute> getAttributes() {
     return attributes;
   }
 
@@ -39,7 +39,7 @@ public class PSMClass {
     attributes.add(attribute);
   }
 
-  public ArrayList getSingleAssociations() {
+  public ArrayList<PSMAssociation> getSingleAssociations() {
     return singleAssociations;
   }
 
@@ -47,7 +47,7 @@ public class PSMClass {
     singleAssociations.add(association);
   }
 
-  public ArrayList getMultiAssociations() {
+  public ArrayList<PSMAssociation> getMultiAssociations() {
     return multiAssociations;
   }
 

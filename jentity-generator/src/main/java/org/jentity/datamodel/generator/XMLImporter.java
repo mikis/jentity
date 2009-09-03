@@ -17,7 +17,7 @@ public class XMLImporter extends DefaultHandler implements Importer{
 
   private InputStream input = null;
   private String fileName = null;
-  private Stack stack = new Stack();
+  private Stack<Object> stack = new Stack<Object>();
 
   public XMLImporter(String inputFileName) {
     this.fileName = inputFileName;

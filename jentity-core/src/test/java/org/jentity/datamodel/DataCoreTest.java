@@ -73,7 +73,7 @@ public class DataCoreTest {
         assertEquals("Equals() returnerede false for kopi", entity, copy);
         
         copy.setAttribute(TestEntity.ATTRIBUTE1, "Attribute1.2");
-        assertEquals("Attribute ændring i kopi påvirkede original", value, entity.getAttribute(TestEntity.ATTRIBUTE1));
+        assertEquals("Attribute ï¿½ndring i kopi pï¿½virkede original", value, entity.getAttribute(TestEntity.ATTRIBUTE1));
     }
 
     @Test
@@ -122,7 +122,7 @@ public class DataCoreTest {
    
     @Test
     private class ChangeEventQueue implements ChangeListener {
-        LinkedList eventList = new LinkedList();
+        LinkedList<ChangeListener.ChangeEvent> eventList = new LinkedList<ChangeListener.ChangeEvent>();
         ChangeListener.ChangeEvent popEvent() {
             return (ChangeListener.ChangeEvent) eventList.getLast();
         }
