@@ -44,5 +44,12 @@
       <artifactId>jmock</artifactId>
       <version>1.2.0</version>
     </dependency>
+    <dependency>
+      <groupId>org.testng</groupId>
+      <artifactId>testng</artifactId>
+      <version>5.9</version>
+      <scope>test</scope>
+      <classifier>jdk15</classifier>
+    </dependency>
   </dependencies>
 </project>
