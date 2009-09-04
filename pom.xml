@@ -23,9 +23,13 @@
 	<name>Jentity framework</name>
 	<url>http://jentity.org/</url>
 	<issueManagement>
-		<system>Sourceforge</system>
-		<url>http://sourceforge.net/projects/jentity/</url>
+		<system>Jira</system>
+		<url>http://jira.agilos.org/browse/JEN</url>
 	</issueManagement>
+	<ciManagement>
+		<system>Bamboo</system>
+		<url>http://bamboo.agilos.org/browse/JAC</url>
+	</ciManagement>
 	<mailingLists />
 	<developers>
 		<developer>
@@ -47,12 +51,12 @@
 	</licenses>
 	<scm>
 		<connection>
-			scm:svn:https://svn.sourceforge.net/svnroot/jentity/trunk
+			scm:svn:http://svn.sourceforge.net/svnroot/jentity/trunk
 		</connection>
 		<developerConnection>
 			scm:svn:https://svn.sourceforge.net/svnroot/jentity/trunk
 		</developerConnection>
-		<url>http://svn.sourceforge.net/viewcvs.cgi/jentity</url>
+		<url>http://fisheye.agilos.org/browse/JEntity</url>
 	</scm>
 	<distributionManagement>
 		<repository>
@@ -133,7 +137,7 @@
           <plugin>
             <artifactId>maven-pmd-plugin</artifactId>
             <configuration>
-              <linkXref>true</linkXref>s
+              <linkXref>true</linkXref>
               <targetJdk>1.5</targetJdk>
             </configuration>
           </plugin>
