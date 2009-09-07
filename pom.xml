@@ -9,7 +9,7 @@
 		<module>jentity-core</module>
 		<module>jentity-swing</module>
 	</modules>
-	<version>0.2</version>
+	<version>0.3-SNAPSHOT</version>
 	<description>
 		The Jentity framework attempts to provide the Java platform with more powerful building blocks
 		for integrating objects and components. The framework focuses on the challenge of maintaining 
@@ -50,12 +50,12 @@
 	</licenses>
 	<scm>
 		<connection>
-			scm:svn:http://svn.sourceforge.net/svnroot/jentity/tags/jentity-0.2
+			scm:svn:http://svn.sourceforge.net/svnroot/jentity/trunk
 		</connection>
 		<developerConnection>
-			scm:svn:https://svn.sourceforge.net/svnroot/jentity/tags/jentity-0.2
+			scm:svn:https://svn.sourceforge.net/svnroot/jentity/trunk
 		</developerConnection>
-		<url>http://fisheye.agilos.org/browse/JEntity/tags/jentity-0.2</url>
+		<url>http://fisheye.agilos.org/browse/JEntity</url>
 	</scm>
 	<distributionManagement>
 		<repository>
