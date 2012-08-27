@@ -147,7 +147,7 @@ public abstract class DataEntity {
         if (lock) sb.append("(Locked)");
         Iterator<ParameterEnum> iterator = sortedAttributes.keySet().iterator();
         while (iterator.hasNext()) {
-            ParameterEnum parameter = (ParameterEnum) iterator.next();
+            ParameterEnum parameter = iterator.next();
             sb.append("\n"+parameter+" = " + getVisitor(parameter).toString(getAttribute(parameter)));
         }
         return sb.toString();
@@ -165,7 +165,7 @@ public abstract class DataEntity {
         
         Iterator<ParameterEnum> iterator = attributes.keySet().iterator();
         while (iterator.hasNext()) {
-            ParameterEnum parameter = (ParameterEnum) iterator.next();
+            ParameterEnum parameter = iterator.next();
             if (!getVisitor(parameter).isEqual(getAttribute(parameter), other.getAttribute(parameter))) return false;
         }
         
@@ -214,14 +214,14 @@ public abstract class DataEntity {
     		try {
     			notifying = true;
     			for (Iterator<ChangeListener> iter = modelListeners.iterator(); iter.hasNext();) {
-    				ChangeListener listener = (ChangeListener) iter.next();
+    				ChangeListener listener = iter.next();
     				listener.handleUpdate(update);
     			}
     		} finally {
     			notifying = false;
     		}
     	} else {
-    		throw new IllegalStateException("Fors�g p� at opdateret data i i notifikationthread");
+    		throw new IllegalStateException("Attempt to update entity in notification thread.");
     	}
     }
 

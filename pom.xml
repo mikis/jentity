@@ -1,224 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.jentity</groupId>
-	<artifactId>jentity</artifactId>
-	<packaging>pom</packaging>
-	<modules>
-		<module>jentity-generator</module>
-		<module>jentity-core</module>
-		<module>jentity-swing</module>
-	</modules>
-	<version>0.3-SNAPSHOT</version>
-	<description>
-		The Jentity framework attempts to provide the Java platform with more powerful building blocks
-		for integrating objects and components. The framework focuses on the challenge of maintaining 
-		consistent data or state in a dynamic environment. This is achieved by provide reusable, extensible 
-		objects, that can use to construct higher order structures like components, applications and systems. 
-		
-		Examples of concrete problems that can be effectively solved by using the Jentity framework, 
-		are shared models, distributed models, MVC constructs. 
-	</description>
-	<name>Jentity framework</name>
-	<url>http://jentity.org/</url>
-	<issueManagement>
-		<system>Jira</system>
-		<url>http://jira.agilos.org/browse/JEN</url>
-	</issueManagement>
-	<ciManagement>
-		<system>Bamboo</system>
-		<url>http://bamboo.agilos.org/browse/JAC</url>
-	</ciManagement>
-	<mailingLists />
-	<developers>
-		<developer>
-			<id>mikis</id>
-			<name>Mikis Seth Sorensen</name>
-			<email>mikisseth@sourceforge.org</email>
-			<timezone>+1</timezone>
-			<roles>
-				<role>PMC Chair</role>
-			</roles>
-		</developer>
-	</developers>
-	<licenses>
-		<license>
-			<name>Apache License V2.0</name>
-			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-			<distribution>repo</distribution>
-		</license>
-	</licenses>
-	<scm>
-		<connection>
-			scm:svn:http://svn.sourceforge.net/svnroot/jentity/trunk
-		</connection>
-		<developerConnection>
-			scm:svn:https://svn.sourceforge.net/svnroot/jentity/trunk
-		</developerConnection>
-		<url>http://fisheye.agilos.org/browse/JEntity</url>
-	</scm>
-	<distributionManagement>
-		<repository>
-			<id>agilos.org</id>
-			<name>Agilos Repo</name>
-			<url>scp://agilos.org/var/www/maven/repo</url>
-		</repository>
-		<snapshotRepository>
-			<uniqueVersion>true</uniqueVersion>
-			<id>agilos.org</id>
-			<name>Agilos Snapshot Repo</name>
-			<url>scp://agilos.org/var/www/maven/repo-snapshot</url>
-		</snapshotRepository>
-		<site>
-			<id>agilos.org</id>
-			<url>scp://agilos.org/var/www/maven/sites/jentity/${project.version}</url>
-		</site>
-	</distributionManagement>
-	<build>
-		<plugins>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>RELEASE</version>
-				<configuration>
-					<compilerVersion>1.6</compilerVersion>
-					<source>1.5</source>
-					<target>1.5</target>
-					<debug>true</debug>
-					<showDeprecation>true</showDeprecation>
-					<showWarnings>true</showWarnings>
-					<optimize>false</optimize>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>com.atlassian.maven.plugins</groupId>
-				<artifactId>maven-clover2-plugin</artifactId>
-				<configuration>
-					<targetPercentage>50%</targetPercentage>
-            		<generateHistorical>true</generateHistorical>
-            		<licenseLocation>clover.license</licenseLocation>
-            	<historyDir>${user.home}/history/${project.artifact}</historyDir>
-            	</configuration>
-      		</plugin>
-    </plugins>
-  </build>
-	<profiles>
-		<profile>
-			<id>reporting</id>
-			<reporting>
-			<plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-project-info-reports-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <configuration>
-          <aggregate>true</aggregate>
-        </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-changelog-plugin</artifactId>
-      </plugin>
-          <plugin>
-            <artifactId>maven-changes-plugin</artifactId>
-          </plugin>
-          <plugin>
-            <artifactId>maven-checkstyle-plugin</artifactId>
-          </plugin>
-          <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>cobertura-maven-plugin</artifactId>
-            <version>2.0</version>
-          </plugin>
-          <plugin>
-            <artifactId>maven-jxr-plugin</artifactId>
-          </plugin>
-          <plugin>
-            <artifactId>maven-pmd-plugin</artifactId>
-            <configuration>
-              <linkXref>true</linkXref>
-              <targetJdk>1.5</targetJdk>
-            </configuration>
-          </plugin>
-          <plugin>
-            <artifactId>maven-surefire-report-plugin</artifactId>
-          </plugin>
-          <plugin>
-				<groupId>com.atlassian.maven.plugins</groupId>
-				<artifactId>maven-clover2-plugin</artifactId>
-				<configuration>
-					<targetPercentage>50%</targetPercentage>
-            		<generateHistorical>true</generateHistorical>
-            		<licenseLocation>clover.license</licenseLocation>
-            	<historyDir>${user.home}/history/${project.artifact}</historyDir>
-            	</configuration>
-      		</plugin>
-        </plugins>
-			</reporting>
-		</profile>
-		<!-- START SNIPPET: release-profile -->
-		<profile>
-			<id>release</id>
-			<build>
-				<plugins>
-					<!-- We want to deploy the artifact to a staging location for perusal -->
-					<plugin>
-						<inherited>true</inherited>
-						<artifactId>maven-deploy-plugin</artifactId>
-						<configuration>
-							<altDeploymentRepository>
-								${deploy.altRepository}
-							</altDeploymentRepository>
-							<updateReleaseInfo>true</updateReleaseInfo>
-						</configuration>
-					</plugin>
-					<!-- We want to package up license resources in the JARs produced -->
-					<plugin>
-						<artifactId>
-							maven-remote-resources-plugin
-						</artifactId>
-						<executions>
-							<execution>
-								<goals>
-									<goal>process</goal>
-								</goals>
-								<configuration>
-									<resourceBundles>
-										<resourceBundle>
-											org.apache:apache-jar-resource-bundle:1.0
-										</resourceBundle>
-									</resourceBundles>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-source-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>attach-sources</id>
-								<goals>
-									<goal>jar</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-javadoc-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>attach-javadocs</id>
-								<goals>
-									<goal>jar</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		<!-- END SNIPPET: release-profile -->
-	</profiles>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.jentity</groupId>
+  <artifactId>jentity</artifactId>
+  <packaging>pom</packaging>
+  <parent>
+    <groupId>org.sonatype.oss</groupId>
+    <artifactId>oss-parent</artifactId>
+    <version>7</version>
+  </parent>
+  <modules>
+    <module>jentity-generator</module>
+    <module>jentity-core</module>
+    <module>jentity-swing</module>
+  </modules>
+  <version>0.3-SNAPSHOT</version>
+  <description>
+    The Jentity framework attempts to provide the Java platform with more powerful building blocks
+    for integrating objects and components. The framework focuses on the challenge of maintaining
+    consistent data or state in a dynamic environment. This is achieved by provide reusable, extensible
+    objects, that can use to construct higher order structures like components, applications and systems.
+
+    Examples of concrete problems that can be effectively solved by using the Jentity framework,
+    are shared models, distributed models, MVC constructs.
+  </description>
+  <name>Jentity framework</name>
+  <url>http://jentity.org/</url>
+  <issueManagement>
+    <system>github</system>
+    <url>https://github.com/mikis/jentity/issues</url>
+  </issueManagement>
+  <developers>
+    <developer>
+      <id>mikis</id>
+      <name>Mikis Seth Sorensen</name>
+      <email>mail@mikis.dk</email>
+      <timezone>+1</timezone>
+      <roles>
+        <role>Lead developer</role>
+      </roles>
+    </developer>
+  </developers>
+  <licenses>
+    <license>
+      <name>Apache License V2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <scm>
+    <connection>scm:git:git://github.com/mikis/jentity.git</connection>
+    <developerConnection>scm:git:git@github.com:mikis/jentity.git</developerConnection>
+    <url>https://github.com/mikis/jentity</url>
+  </scm>
 </project>

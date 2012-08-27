@@ -12,6 +12,7 @@
       <plugin>
         <groupId>org.jentity</groupId>
         <artifactId>jentity-generator</artifactId>
+        <version>${project.version}</version>
         <executions>
           <execution>
             <phase>generate-sources</phase>
@@ -30,26 +31,26 @@
     <dependency>
       <groupId>org.jentity</groupId>
       <artifactId>jentity-core</artifactId>
-      <version>0.3-SNAPSHOT</version>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>org.jentity</groupId>
       <artifactId>jentity-core</artifactId>
-      <version>0.3-SNAPSHOT</version>
+      <version>${project.version}</version>
       <type>test-jar</type>
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>jmock</groupId>
-      <artifactId>jmock</artifactId>
-      <version>1.2.0</version>
-    </dependency>
-    <dependency>
       <groupId>org.testng</groupId>
       <artifactId>testng</artifactId>
-      <version>5.9</version>
+      <version>6.7</version>
       <scope>test</scope>
-      <classifier>jdk15</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>1.9.5-rc1</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 </project>

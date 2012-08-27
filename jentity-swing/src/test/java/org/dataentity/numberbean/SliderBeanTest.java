@@ -1,28 +1,26 @@
 package org.dataentity.numberbean;
 
-import javax.swing.JSlider;
-
-import org.jentity.datamodel.ChangeEventConstraint;
+import org.jentity.datamodel.ChangeEventMatcher;
 import org.jentity.datamodel.ChangeListener;
 import org.jentity.datamodel.DataEntity;
 import org.jentity.datamodel.ParameterEnum;
 import org.jentity.numberbean.SliderBean;
-import org.jmock.Mock;
-import org.jmock.MockObjectTestCase;
-import org.jmock.core.Constraint;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
+import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class SliderBeanTest extends MockObjectTestCase {
+import javax.swing.*;
+
+import static org.mockito.Mockito.*;
+
+public class SliderBeanTest {
 	private  SliderBeanModel model;
 	private  JSlider slider;
 	protected SliderBean bean;
-	private Mock mockListener; 
+    private ChangeListener changeListener;
 
-    @BeforeTest
+    @BeforeMethod
 	protected void setUp() throws Exception {
-    	super.setUp();
 		model = new SliderBeanModel();
 		// Initialize model
 		model.setAttribute(SliderBeanModel.MIN, new Integer(0));
@@ -30,16 +28,12 @@ public class SliderBeanTest extends MockObjectTestCase {
 		model.setAttribute(SliderBeanModel.VALUE, new Integer(500));
 		
 		slider = new JSlider();
-		bean = new SliderBean(slider,model, SliderBeanModel.VALUE,SliderBeanModel.MIN, SliderBeanModel.MAX);
+		bean = new SliderBean(slider, model, SliderBeanModel.VALUE, SliderBeanModel.MIN, SliderBeanModel.MAX);
 		bean.attachToModel();
-		mockListener = mock(ChangeListener.class);
-		mockListener.expects(once()).method("handleUpdate").with(ANYTHING  );
-		model.addListener((ChangeListener) mockListener.proxy());
-	}
-
-    @AfterTest
-	protected void tearDown() throws Exception {
-		super.tearDown();
+        changeListener = mock(ChangeListener.class);
+		model.addListener(changeListener);
+        verify(changeListener).handleUpdate((ChangeListener.ChangeEvent) anyObject());
+        reset(changeListener);
 	}
 
 	/**
@@ -50,26 +44,26 @@ public class SliderBeanTest extends MockObjectTestCase {
 		Integer min = new Integer(100);
 		SliderBeanModel expectedUpdate = new SliderBeanModel();
 		expectedUpdate.setAttribute(SliderBeanModel.MIN, min);
-		mockListener.expects(once()).method("handleUpdate").with( changeEventUpdateEq(expectedUpdate) );
-		slider.setMinimum(min.intValue());
+		slider.setMinimum(min);
+        verify(changeListener).handleUpdate(changeEventUpdateEq(expectedUpdate));
 	}
 
     @Test
 	public void testUserEventMax() {
 		Integer max = new Integer(900);
 		SliderBeanModel expectedUpdate = new SliderBeanModel();
-		expectedUpdate.setAttribute(SliderBeanModel.MAX, max);        
-		mockListener.expects(once()).method("handleUpdate").with( changeEventUpdateEq(expectedUpdate) );
+		expectedUpdate.setAttribute(SliderBeanModel.MAX, max);
 		slider.setMaximum(max.intValue());
+        verify(changeListener).handleUpdate(changeEventUpdateEq(expectedUpdate));
 	}
 
     @Test
 	public void testUserEventValue() {
 		Integer value = new Integer(900);
 		SliderBeanModel expectedUpdate = new SliderBeanModel();
-		expectedUpdate.setAttribute(SliderBeanModel.VALUE, value);        
-		mockListener.expects(once()).method("handleUpdate").with( changeEventUpdateEq(expectedUpdate) );
+		expectedUpdate.setAttribute(SliderBeanModel.VALUE, value);
 		slider.setValue(value.intValue());
+        verify(changeListener).handleUpdate(changeEventUpdateEq(expectedUpdate));
 	}
 	
 	/**
@@ -80,9 +74,8 @@ public class SliderBeanTest extends MockObjectTestCase {
 		Integer min = new Integer(100);
 		SliderBeanModel update = new SliderBeanModel();
 		update.setAttribute(SliderBeanModel.MIN, min);
-		mockListener.expects(once()).method("handleUpdate").with(ANYTHING  );
 		model.update(update);
-		assertEquals("Wrong slider min attribute after update", min.intValue(), slider.getMinimum());
+		Assert.assertEquals(slider.getMinimum(), min.intValue(), "Wrong slider min attribute after update");
 	}
 
     @Test
@@ -90,9 +83,8 @@ public class SliderBeanTest extends MockObjectTestCase {
 		Integer max = new Integer(100);
 		SliderBeanModel update = new SliderBeanModel();
 		update.setAttribute(SliderBeanModel.MAX, max);
-		mockListener.expects(once()).method("handleUpdate").with(ANYTHING  );
 		model.update(update);
-		assertEquals("Wrong slider max attribute after update", max.intValue(), slider.getMaximum());
+		Assert.assertEquals(slider.getMaximum(), max.intValue(), "Wrong slider max attribute after update");
 	}
 
     @Test
@@ -100,9 +92,8 @@ public class SliderBeanTest extends MockObjectTestCase {
 		Integer value = new Integer(100);
 		SliderBeanModel update = new SliderBeanModel();
 		update.setAttribute(SliderBeanModel.VALUE, value);
-		mockListener.expects(once()).method("handleUpdate").with(ANYTHING  );
 		model.update(update);
-		assertEquals("Wrong slider value attribute after update", value.intValue(), slider.getValue());
+		Assert.assertEquals(slider.getValue(), value.intValue(), "Wrong slider value attribute after update");
 	}
 	
 	/**
@@ -111,13 +102,13 @@ public class SliderBeanTest extends MockObjectTestCase {
     @Test
 	public void testEventLoopModelEvent() {
 		SliderBeanModel update = new SliderBeanModel();
-		update.setAttribute(SliderBeanModel.VALUE, new Integer(900));   
-		mockListener.expects(once()).method("handleUpdate").with( ANYTHING );
+		update.setAttribute(SliderBeanModel.VALUE, new Integer(900));
 		model.update(update);
+        verify(changeListener).handleUpdate((ChangeListener.ChangeEvent) anyObject());
 	}
 
-	private Constraint changeEventUpdateEq( DataEntity update ) {
-        return new ChangeEventConstraint(update);
+	private ChangeListener.ChangeEvent changeEventUpdateEq( DataEntity update ) {
+        return argThat(new ChangeEventMatcher(update));
     }
 	
 	static class SliderBeanModel extends DataEntity {
@@ -129,7 +120,6 @@ public class SliderBeanTest extends MockObjectTestCase {
 			return new SliderBeanModel();
 		}
 
-		@SuppressWarnings("unchecked")
 		@Override
 		public Class getParameterEnumClass() {
 			return SliderBeanModelParameter.class;
