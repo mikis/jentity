@@ -35,8 +35,7 @@ public class IOMParameter {
   public boolean isLast() {
     IOMParameter last = (IOMParameter) operationParent.getParameters().get(
       operationParent.getParameters().size()-1);
-    if (last==this) return true;
-    return false;
+      return last == this;
   }
 
 }

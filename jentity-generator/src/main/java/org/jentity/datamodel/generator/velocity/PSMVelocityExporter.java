@@ -16,7 +16,7 @@ import org.jentity.datamodel.generator.IOMRole;
 
 public class PSMVelocityExporter implements Exporter {
   private String templateFile = "DataEntity.vm";
-  private PSMClass currentClass = null;;
+  private PSMClass currentClass = null;
   private String outputpath = "";
 
   public PSMVelocityExporter() {

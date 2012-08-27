@@ -13,9 +13,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
 
-public class XMLImporter extends DefaultHandler implements Importer{
-
-  private InputStream input = null;
+public class XMLImporter extends DefaultHandler implements Importer {
   private String fileName = null;
   private Stack<Object> stack = new Stack<Object>();
 
@@ -24,8 +22,7 @@ public class XMLImporter extends DefaultHandler implements Importer{
   }
 
   public void start() throws Exception {
-
-    input = new FileInputStream(fileName);
+     InputStream input = new FileInputStream(fileName);
     SAXParserFactory spf = SAXParserFactory.newInstance();
     spf.setNamespaceAware(true);
     SAXParser saxParser = spf.newSAXParser();
@@ -102,7 +99,7 @@ public class XMLImporter extends DefaultHandler implements Importer{
       role = parent.getEndRole();
     role.setName(attr.getValue("name"));
     role.setMultiplicity(attr.getValue("multiplicity"));
-    role.setNavigable(attr.getValue("navigable").equalsIgnoreCase("true")?true:false);
+    role.setNavigable(attr.getValue("navigable").equalsIgnoreCase("true"));
     // class involved
     IOMClass classInvolved = IOMController.queryClass(attr.getValue("class"));
     if (classInvolved==null)
